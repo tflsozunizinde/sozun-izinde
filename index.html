@@ -16,9 +16,14 @@
   <!-- ════ NAV ════ -->
   <header class="site-header" id="site-header">
     <nav class="navbar" role="navigation" aria-label="Ana Navigasyon">
-      <a href="#hero" class="brand" id="brand-logo" style="display:flex;align-items:center;gap:10px">
-        <img src="assets/proje_logo_clean.png" alt="Dilimizin Zenginlikleri Proje Logosu" style="height:36px;width:auto;border-radius:50%;box-shadow:0 0 10px rgba(201,168,76,0.3)" />
-        <span class="brand-text">Dilimizin Zenginlikleri</span>
+      <a href="#hero" class="brand" id="brand-logo" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+        <div class="tfl-badge-wrap" style="position:relative;display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#c9a84c 0%,#7d611d 100%);padding:2px;box-shadow:0 0 15px rgba(201,168,76,0.45);transition:all 0.3s ease">
+          <img src="assets/tfl_logo.jpeg" alt="TFL Logosu" style="width:100%;height:100%;border-radius:10px;object-fit:cover;display:block" />
+        </div>
+        <div style="display:flex;flex-direction:column;line-height:1.2">
+          <span class="brand-text" style="font-weight:700;letter-spacing:0.02em">Dilimizin Zenginlikleri</span>
+          <span style="font-size:0.7rem;color:var(--color-gold);font-weight:600;letter-spacing:0.08em;text-transform:uppercase">TFL · Dîvânu Lugâti't-Türk</span>
+        </div>
       </a>
       <button class="hamburger" id="hamburger-btn" aria-label="Menüyü aç" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -52,7 +57,7 @@
       <div class="hero-content">
         <div class="hero-badge" id="hero-badge">
           <span class="hero-badge-dot"></span>
-          Türk Dili Eğitim Projesi
+          Tarsus Şehit Halil Özdemir Fen Lisesi · Dilimizin Zenginlikleri
         </div>
         <h1 class="hero-title" id="hero-title">
           Dilimizin<br />
@@ -232,9 +237,16 @@
   <!-- ════ FOOTER ════ -->
   <footer class="site-footer" id="site-footer">
     <div class="footer-inner container">
-      <div class="footer-brand">
-        <span class="brand-icon">✦</span>
-        <span class="brand-text">Dilimizin Zenginlikleri</span>
+      <div class="footer-brand" style="display:flex;flex-direction:column;align-items:center;gap:10px">
+        <div style="display:flex;align-items:center;gap:14px">
+          <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#c9a84c,#7d611d);padding:2px;box-shadow:0 0 20px rgba(201,168,76,0.35)">
+            <img src="assets/tfl_logo.jpeg" alt="TFL Logosu" style="width:100%;height:100%;border-radius:12px;object-fit:cover;display:block" />
+          </div>
+          <div style="text-align:left">
+            <span class="brand-text" style="font-size:1.25rem;font-weight:700">Dilimizin Zenginlikleri</span>
+            <div style="font-size:0.75rem;color:var(--color-gold);font-weight:600;letter-spacing:0.06em">TARSUS ŞEHİT HALİL ÖZDEMİR FEN LİSESİ (TFL)</div>
+          </div>
+        </div>
         <p class="footer-tagline">Türkçemizin sonsuz zenginliğini keşfediyoruz.</p>
       </div>
       <nav class="footer-nav" aria-label="Alt Navigasyon">

@@ -307,9 +307,14 @@
 
   <!-- ════ ÜST GEZİNME ÇUBUĞU ════ -->
   <nav class="top-nav">
-    <a href="index.html" class="nav-brand">
-      <img src="assets/proje_logo_clean.png" alt="Proje Logosu" style="height:32px;width:auto;border-radius:50%;box-shadow:0 0 8px rgba(201,168,76,0.4)" />
-      <span>Dilimizin Zenginlikleri</span>
+    <a href="index.html" class="nav-brand" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+      <div style="position:relative;display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#c9a84c 0%,#7d611d 100%);padding:2px;box-shadow:0 0 15px rgba(201,168,76,0.45)">
+        <img src="assets/tfl_logo.jpeg" alt="TFL Logosu" style="width:100%;height:100%;border-radius:8px;object-fit:cover;display:block" />
+      </div>
+      <div style="display:flex;flex-direction:column;line-height:1.2">
+        <span style="font-weight:700;color:#fff">Dilimizin Zenginlikleri</span>
+        <span style="font-size:0.68rem;color:var(--color-gold);font-weight:600;letter-spacing:0.08em;text-transform:uppercase">TFL · DLT Rehberi</span>
+      </div>
     </a>
     <div class="nav-links">
       <a href="index.html" class="nav-btn">← Ana Sayfa</a>
@@ -438,6 +443,22 @@
 
     </article>
   </main>
+
+  <!-- ════ FOOTER ════ -->
+  <footer style="background:var(--color-surface);border-top:1px solid var(--color-border);padding:2.5rem 1.5rem;margin-top:4rem;text-align:center">
+    <div style="max-width:800px;margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:12px">
+      <div style="display:flex;align-items:center;gap:14px">
+        <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#c9a84c,#7d611d);padding:2px;box-shadow:0 0 18px rgba(201,168,76,0.35)">
+          <img src="assets/tfl_logo.jpeg" alt="TFL Logosu" style="width:100%;height:100%;border-radius:10px;object-fit:cover;display:block" />
+        </div>
+        <div style="text-align:left">
+          <div style="font-size:1.15rem;font-weight:700;color:#fff">Dilimizin Zenginlikleri</div>
+          <div style="font-size:0.75rem;color:var(--color-gold);font-weight:600;letter-spacing:0.06em">TARSUS ŞEHİT HALİL ÖZDEMİR FEN LİSESİ (TFL)</div>
+        </div>
+      </div>
+      <p style="color:var(--color-text-muted);font-size:0.88rem;margin-top:6px">© 2025–2026 Dilimizin Zenginlikleri Projesi · Dîvânu Lugâti't-Türk Rehberi</p>
+    </div>
+  </footer>
 
 </body>
 </html>

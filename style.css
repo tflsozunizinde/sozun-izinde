@@ -1087,38 +1087,66 @@ ul { list-style: none; }
 }
 
 @media (max-width: 768px) {
+  .site-header { padding: 0.5rem 0.8rem; }
+  .brand { gap: 8px; }
+  .brand-text { font-size: 1.05rem; }
   .hamburger { display: flex; }
   .nav-links {
     position: absolute;
-    top: var(--nav-height);
+    top: 100%;
     left: 0; right: 0;
     flex-direction: column;
     gap: 0;
     background: rgba(13,13,20,0.98);
     backdrop-filter: blur(20px);
-    padding: 1rem 0 2rem;
+    padding: 0.8rem 0 1.5rem;
     max-height: 0;
     overflow: hidden;
     transition: max-height var(--transition-slow);
-    border-bottom: 1px solid var(--color-border);
+    border-bottom: 2px solid var(--color-gold);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.8);
   }
-  .nav-links.open { max-height: 400px; }
+  .nav-links.open { max-height: 520px; overflow-y: auto; }
   .nav-link {
     display: block;
-    padding: 0.85rem 2rem;
-    font-size: 1rem;
+    padding: 0.75rem 1.4rem;
+    font-size: 0.95rem;
   }
   .nav-link::after { display: none; }
+  .nav-map-btn { margin: 0.4rem 1.4rem; justify-content: center; }
+  
+  .hero { padding: 5rem 1rem 3rem; min-height: auto; }
+  .hero-badge { font-size: 0.72rem; padding: 0.35rem 0.85rem; max-width: 95%; text-align: center; }
+  .hero-title { font-size: clamp(2.2rem, 9vw, 3.2rem); }
+  .hero-subtitle { font-size: 0.95rem; line-height: 1.5; padding: 0 0.5rem; }
+  .hero-actions { flex-direction: column; width: 100%; max-width: 320px; gap: 0.6rem; }
+  .hero-actions .btn { width: 100%; justify-content: center; padding: 0.75rem 1rem; }
+  
+  .daily-word-card { padding: 1.5rem 1rem; }
+  .daily-word-header { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+  .daily-word-val { font-size: 2.2rem; }
+  
+  .quiz-card { padding: 1.5rem 1rem; }
+  .quiz-options { grid-template-columns: 1fr; gap: 0.6rem; }
+  .quiz-opt-btn { padding: 0.75rem 1rem; font-size: 0.9rem; }
+  
   .etkinlik-grid { grid-template-columns: 1fr; }
-  .stats-grid { gap: 1.5rem; flex-wrap: wrap; justify-content: center; }
+  .stats-grid { gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
+  .stat-item { padding: 0 1.2rem; }
   .stat-divider { display: none; }
   .stat-number { font-size: 1.8rem; }
-  .ornament-left, .ornament-right { font-size: 5rem; }
+  .ornament-left, .ornament-right { display: none; }
+  
+  .footer-inner { flex-direction: column; text-align: center; gap: 1.5rem; }
+  .footer-nav { justify-content: center; flex-wrap: wrap; gap: 0.8rem; }
 }
 
 @media (max-width: 480px) {
-  .hero-title { font-size: clamp(2.5rem, 10vw, 3.5rem); }
-  .stats-grid { gap: 1rem; }
+  body { overflow-x: hidden; }
+  .hero-title { font-size: 2rem; }
+  .stats-grid { gap: 0.8rem; }
+  .stat-item { padding: 0 0.8rem; }
+  .daily-sav-box { padding: 1rem 0.8rem; }
 }
 
 /* ── STATS STRIP ── */
