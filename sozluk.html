@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <link rel="icon" href="favicon.ico" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Kadim Sözlük & Tabu – Dilimizin Zenginlikleri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="style.css"/>
+<style>
+/* ── PAGE HERO ── */
+.sozluk-hero{background:linear-gradient(160deg,#0a0a12,#181024 50%,#0a0a12);padding:calc(var(--nav-height) + 3rem) 0 2.5rem;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--color-border)}
+.sozluk-hero::before{content:'📜';position:absolute;font-size:18rem;opacity:.025;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.sozluk-tag{display:inline-flex;align-items:center;gap:.5rem;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--color-gold);border:1px solid rgba(201,168,76,.35);background:rgba(201,168,76,.08);padding:.45em 1.4em;border-radius:var(--radius-pill);margin-bottom:1.1rem}
+.sozluk-title{font-family:var(--font-display);font-size:clamp(2.2rem,5vw,3.8rem);font-weight:700;color:#fff;line-height:1.15;margin-bottom:.8rem}
+.sozluk-title em{color:var(--color-gold-light);font-style:italic}
+.sozluk-sub{font-size:1rem;color:rgba(240,237,230,.72);max-width:680px;margin-inline:auto;line-height:1.6}
+
+/* ── TABS ── */
+.tab-bar{background:var(--color-surface);border-bottom:2px solid var(--color-border);position:sticky;top:var(--nav-height);z-index:200;backdrop-filter:blur(12px)}
+.tab-bar-inner{display:flex;gap:.5rem;overflow-x:auto}
+.tab-btn{padding:1em 2.2em;font-size:.9rem;font-weight:600;letter-spacing:.04em;color:var(--color-text-muted);background:none;border:none;border-bottom:3px solid transparent;margin-bottom:-2px;cursor:pointer;white-space:nowrap;transition:all var(--transition);display:inline-flex;align-items:center;gap:.6rem}
+.tab-btn:hover{color:var(--color-gold-light);background:rgba(201,168,76,.04)}
+.tab-btn.active{color:var(--color-gold-light);border-bottom-color:var(--color-gold);background:rgba(201,168,76,.08)}
+.tab-panel{display:none;animation:fadeIn .3s}
+.tab-panel.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ── DICTIONARY TOOLBAR ── */
+.dict-toolbar{background:var(--color-surface);padding:1.4rem 0 1rem;border-bottom:1px solid var(--color-border)}
+.dict-toolbar-top{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;margin-bottom:1rem}
+.search-box{flex:1;min-width:240px;display:flex;align-items:center;gap:.75rem;background:var(--color-surface-2);border:1.5px solid var(--color-border);border-radius:var(--radius-pill);padding:.7rem 1.4rem;transition:border-color var(--transition),box-shadow var(--transition)}
+.search-box:focus-within{border-color:var(--color-gold);box-shadow:0 0 0 3px rgba(201,168,76,.15)}
+.search-input{background:none;border:none;outline:none;color:var(--color-text);font-family:var(--font-body);font-size:.92rem;width:100%}
+.search-input::placeholder{color:var(--color-text-faint)}
+.word-count-badge{font-size:.82rem;font-weight:600;color:var(--color-gold-light);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.25);border-radius:var(--radius-pill);padding:.4em 1em;white-space:nowrap}
+
+.cat-filters{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem}
+.cat-btn{padding:.45em 1em;border-radius:var(--radius-pill);border:1.5px solid var(--color-border);font-size:.78rem;font-weight:600;color:var(--color-text-muted);background:var(--color-surface-2);cursor:pointer;transition:all var(--transition);display:inline-flex;align-items:center;gap:.4rem}
+.cat-btn:hover{border-color:var(--color-gold);color:var(--color-gold-light);background:rgba(201,168,76,.08)}
+.cat-btn.active{background:linear-gradient(135deg,var(--color-gold),#946f25);border-color:transparent;color:#120a02;font-weight:700;box-shadow:0 2px 12px rgba(201,168,76,.28)}
+
+/* ── WORD CARDS ── */
+.dict-section{padding:2.5rem 0 5rem;background:var(--color-bg)}
+.cat-group{margin-bottom:3.5rem}
+.cat-group-head{border-bottom:2px solid rgba(201,168,76,.2);padding-bottom:.8rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:.5rem}
+.cat-group-title{font-family:var(--font-display);font-size:1.35rem;font-weight:700;color:var(--color-gold-light);display:flex;align-items:center;gap:.6rem}
+.cat-group-desc{font-size:.82rem;color:var(--color-text-muted);font-style:italic}
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:1.3rem}
+
+/* Single Word Card */
+.word-card{background:linear-gradient(145deg,rgba(26,26,40,0.92),rgba(19,19,30,0.95));border:1.5px solid var(--color-border);border-radius:var(--radius-md);padding:1.4rem 1.4rem 1.2rem;transition:all var(--transition);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between}
+.word-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,var(--color-gold),var(--color-crimson));opacity:.4;transition:opacity var(--transition)}
+.word-card:hover{transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.6),0 0 24px rgba(201,168,76,.12);border-color:rgba(201,168,76,.4)}
+.word-card:hover::before{opacity:1}
+
+.wc-top{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem;margin-bottom:.85rem;border-bottom:1px solid rgba(201,168,76,.12);padding-bottom:.55rem}
+.wc-word{font-family:var(--font-display);font-size:1.55rem;font-weight:700;color:#fff;letter-spacing:.02em}
+.wc-word em{color:var(--color-gold-light);font-style:normal}
+.wc-no{font-family:var(--font-display);font-size:.78rem;font-weight:700;color:var(--color-gold);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:var(--radius-sm);padding:.2em .6em;letter-spacing:.05em}
+
+.wc-field{margin-bottom:.65rem;font-size:.85rem;line-height:1.55}
+.wc-field-label{font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--color-gold);display:block;margin-bottom:.15rem}
+.wc-dlt{color:#f5f0e6;font-weight:500}
+.wc-tdk{color:rgba(240,237,230,.8);background:rgba(201,168,76,.04);border-left:2.5px solid var(--color-gold);padding:.35rem .6rem;border-radius:0 4px 4px 0}
+.wc-koken{color:var(--color-text-muted);font-size:.8rem}
+.wc-baglam{color:var(--color-text-muted);font-size:.78rem;font-style:italic}
+
+.wc-actions{margin-top:1rem;padding-top:.75rem;border-top:1px dashed rgba(201,168,76,.15);display:flex;justify-content:space-between;align-items:center;gap:.5rem}
+.wc-tabu-btn{font-size:.74rem;font-weight:600;color:var(--color-gold-light);background:rgba(201,168,76,.08);border:1px solid rgba(201,168,76,.3);border-radius:var(--radius-pill);padding:.35em .9em;cursor:pointer;transition:all var(--transition);display:inline-flex;align-items:center;gap:.4rem}
+.wc-tabu-btn:hover{background:var(--color-gold);color:#120a02}
+.wc-category-tag{font-size:.68rem;color:var(--color-text-faint);letter-spacing:.04em}
+
+/* Inline Tabu drawer */
+.wc-tabu-drawer{display:none;background:rgba(155,35,53,.08);border:1px solid rgba(155,35,53,.3);border-radius:var(--radius-sm);padding:.75rem;margin-top:.75rem;animation:fadeIn .2s}
+.wc-tabu-drawer.open{display:block}
+.wc-tabu-drawer-title{font-size:.65rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#e67086;margin-bottom:.4rem;display:flex;align-items:center;gap:.3rem}
+.wc-tabu-chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.wc-tabu-chip{background:rgba(155,35,53,.18);border:1px solid rgba(155,35,53,.45);color:#ff99aa;font-size:.72rem;font-weight:600;padding:.2em .6em;border-radius:var(--radius-sm)}
+
+.wc-icon-btn{background:none;border:none;cursor:pointer;font-size:1.1rem;padding:.2rem;opacity:.7;transition:all var(--transition)}
+.wc-icon-btn:hover{opacity:1;transform:scale(1.15)}
+.wc-icon-btn.active{opacity:1;filter:drop-shadow(0 0 6px var(--color-gold))}
+.word-card.highlighted{outline:3px solid var(--color-gold);box-shadow:0 0 30px rgba(201,168,76,.4);animation:cardPulse 1s ease-in-out infinite alternate}
+@keyframes cardPulse{from{transform:scale(1)}to{transform:scale(1.02)}}
+
+/* Print Stylesheet for physical taboo cards */
+@media print{
+  header,footer,.tab-bar,.dict-toolbar,.sozluk-hero,.wc-actions,.wc-koken,.wc-baglam,.empty-msg{display:none !important}
+  body,main,.dict-section{background:#fff !important;color:#000 !important;padding:0 !important}
+  .word-grid{display:grid !important;grid-template-columns:repeat(3,1fr) !important;gap:8mm !important}
+  .word-card{page-break-inside:avoid;border:2px dashed #444 !important;border-radius:6px !important;padding:5mm !important;background:#fff !important;box-shadow:none !important;color:#000 !important}
+  .wc-word{color:#900 !important;font-size:1.4rem !important}
+  .wc-dlt,.wc-tdk{color:#222 !important;font-size:.8rem !important}
+  .wc-tabu-drawer{display:block !important;background:none !important;border:1px solid #999 !important;margin-top:3mm !important}
+  .wc-tabu-chip{background:#f0f0f0 !important;color:#900 !important;border:1px solid #aaa !important;font-size:.8rem !important}
+}
+
+.empty-msg{text-align:center;padding:5rem 1rem;color:var(--color-text-muted);display:none}
+.empty-msg.show{display:block}
+.empty-msg .em-icon{font-size:3.5rem;margin-bottom:1rem}
+
+/* ── TABU OYUNU SECTION ── */
+.tabu-wrap{padding:2.5rem 0 6rem;background:var(--color-bg);min-height:75vh}
+
+/* Setup Card */
+.tabu-setup{max-width:820px;margin-inline:auto;background:var(--color-surface);border:1.5px solid var(--color-border);border-radius:var(--radius-lg);padding:2.5rem clamp(1.2rem,4vw,3rem);box-shadow:0 12px 48px rgba(0,0,0,.5)}
+.setup-title{font-family:var(--font-display);font-size:2.2rem;font-weight:700;color:#fff;text-align:center;margin-bottom:.4rem}
+.setup-title em{color:var(--color-gold-light);font-style:italic}
+.setup-sub{text-align:center;color:var(--color-text-muted);font-size:.95rem;margin-bottom:2.5rem}
+
+.setup-box{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-md);padding:1.5rem;margin-bottom:1.5rem}
+.setup-box-title{font-family:var(--font-display);font-size:1.05rem;font-weight:700;color:var(--color-gold-light);margin-bottom:1.1rem;display:flex;align-items:center;gap:.5rem}
+
+.mode-cards{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+.mode-card{border:2px solid var(--color-border);border-radius:var(--radius-md);padding:1.4rem;cursor:pointer;transition:all var(--transition);text-align:center;background:rgba(255,255,255,.01)}
+.mode-card:hover{border-color:var(--color-gold);background:rgba(201,168,76,.06)}
+.mode-card.selected{border-color:var(--color-gold);background:rgba(201,168,76,.12);box-shadow:0 0 24px rgba(201,168,76,.2)}
+.mode-icon{font-size:2.5rem;margin-bottom:.6rem}
+.mode-name{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:#fff;margin-bottom:.3rem}
+.mode-desc{font-size:.8rem;color:var(--color-text-muted);line-height:1.5}
+
+.setup-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.setup-field{display:flex;flex-direction:column;gap:.4rem}
+.setup-field label{font-size:.78rem;font-weight:600;color:var(--color-text-muted);display:flex;justify-content:space-between}
+.setup-field label span{color:var(--color-gold-light)}
+.setup-input,.setup-select{background:var(--color-surface);border:1.5px solid var(--color-border);border-radius:var(--radius-sm);padding:.6rem .85rem;color:var(--color-text);font-family:var(--font-body);font-size:.9rem;transition:border-color var(--transition)}
+.setup-input:focus,.setup-select:focus{outline:none;border-color:var(--color-gold)}
+
+.team-inputs-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.75rem;margin-top:.5rem}
+.team-name-input{background:var(--color-surface);border:1.5px solid var(--color-border);border-radius:var(--radius-sm);padding:.6rem .9rem;color:var(--color-text);font-family:var(--font-body);font-size:.88rem}
+.team-name-input:focus{outline:none;border-color:var(--color-gold)}
+
+.start-btn{width:100%;padding:1.15rem;border-radius:var(--radius-pill);background:linear-gradient(135deg,var(--color-gold),var(--color-crimson));color:#fff;font-family:var(--font-display);font-size:1.2rem;font-weight:700;letter-spacing:.04em;border:none;cursor:pointer;margin-top:1.5rem;transition:all var(--transition);box-shadow:0 8px 30px rgba(201,168,76,.25)}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(201,168,76,.4)}
+
+/* WAITING SCREEN */
+.tabu-waiting{display:none;max-width:560px;margin-inline:auto;background:var(--color-surface);border:2px solid var(--color-border);border-radius:var(--radius-lg);text-align:center;padding:3.5rem 2rem}
+.waiting-badge{display:inline-block;font-size:.78rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--color-gold);background:rgba(201,168,76,.1);border:1px solid rgba(201,168,76,.3);border-radius:var(--radius-pill);padding:.35em 1.2em;margin-bottom:1.2rem}
+.waiting-icon{font-size:4.5rem;margin-bottom:1rem;animation:float 3s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.waiting-title{font-family:var(--font-display);font-size:2rem;font-weight:700;color:#fff;margin-bottom:.5rem}
+.waiting-desc{color:var(--color-text-muted);margin-bottom:2rem;font-size:.95rem;line-height:1.6}
+.start-turn-btn{display:inline-flex;align-items:center;gap:.6rem;padding:1rem 2.8rem;border-radius:var(--radius-pill);background:linear-gradient(135deg,var(--color-gold),var(--color-crimson));color:#fff;font-family:var(--font-display);font-size:1.15rem;font-weight:700;border:none;cursor:pointer;transition:all var(--transition);box-shadow:0 8px 28px rgba(201,168,76,.3)}
+.start-turn-btn:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(201,168,76,.45)}
+
+/* ACTIVE GAME SCREEN */
+.tabu-game{display:none;max-width:720px;margin-inline:auto}
+.game-header-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.2rem;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-pill);padding:.6rem 1.4rem;flex-wrap:wrap;gap:.6rem}
+.game-active-entity{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--color-gold-light);display:flex;align-items:center;gap:.5rem}
+.game-round-info{font-size:.8rem;color:var(--color-text-muted)}
+
+.scores-stream{display:flex;gap:.6rem;flex-wrap:wrap}
+.score-pill{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-pill);padding:.35em .9em;font-size:.8rem;color:var(--color-text-muted);transition:all var(--transition)}
+.score-pill.active{border-color:var(--color-gold);color:var(--color-gold-light);font-weight:700;background:rgba(201,168,76,.12)}
+
+/* Timer Bar */
+.game-timer-area{text-align:center;margin-bottom:1.5rem}
+.timer-radial{width:88px;height:88px;border-radius:50%;background:var(--color-surface);border:4px solid var(--color-border);display:flex;align-items:center;justify-content:center;margin-inline:auto;font-family:var(--font-display);font-size:2rem;font-weight:700;color:var(--color-gold-light);box-shadow:0 0 20px rgba(0,0,0,.4);transition:all .3s}
+.timer-radial.urgent{border-color:#ff3355;color:#ff3355;box-shadow:0 0 25px rgba(255,51,85,.4);animation:heartbeat .6s infinite}
+@keyframes heartbeat{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+
+/* Tabu Play Card */
+.play-card{background:linear-gradient(160deg,#19152b 0%,#110e1c 100%);border:2.5px solid var(--color-gold);border-radius:var(--radius-lg);padding:2.2rem 2rem 2rem;position:relative;overflow:hidden;box-shadow:0 16px 48px rgba(0,0,0,.7),0 0 40px rgba(201,168,76,.15);margin-bottom:1.5rem;text-align:center}
+.play-card-no{position:absolute;top:1rem;right:1.2rem;font-size:.75rem;font-weight:700;color:var(--color-gold);background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.3);border-radius:var(--radius-sm);padding:.15em .55em}
+.play-card-cat{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--color-gold);margin-bottom:.5rem}
+.play-main-word{font-family:var(--font-display);font-size: clamp(2.4rem,6vw,3.4rem);font-weight:800;color:#fff;line-height:1.15;letter-spacing:.02em;margin-bottom:.4rem;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+.play-main-dlt{font-size:1.05rem;color:var(--color-gold-light);font-style:italic;margin-bottom:1.6rem}
+
+.play-forbidden-box{background:rgba(155,35,53,.15);border:2px solid rgba(155,35,53,.5);border-radius:var(--radius-md);padding:1.4rem 1.2rem 1.2rem;position:relative}
+.play-forbidden-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#9b2335;color:#fff;font-size:.68rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;padding:.2em 1.2em;border-radius:var(--radius-pill);white-space:nowrap;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.play-forbidden-words{display:flex;flex-direction:column;gap:.6rem;align-items:center;margin-top:.4rem}
+.play-forbidden-word{font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:#ff99aa;letter-spacing:.03em;border-bottom:1px dashed rgba(255,153,170,.25);padding-bottom:.2rem;width:80%;max-width:320px}
+
+/* Action Buttons */
+.game-controls{display:grid;grid-template-columns:1.2fr 1fr 1.2fr;gap:1rem;margin-bottom:1.2rem}
+.ctrl-btn{padding:1.1rem .8rem;border-radius:var(--radius-md);font-family:var(--font-display);font-size:1.05rem;font-weight:700;letter-spacing:.02em;border:none;cursor:pointer;transition:all var(--transition);display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.ctrl-btn small{font-family:var(--font-body);font-size:.68rem;opacity:.8;font-weight:400}
+.ctrl-correct{background:linear-gradient(135deg,#1f8551,#105a33);color:#fff;box-shadow:0 6px 20px rgba(31,133,81,.35)}
+.ctrl-correct:hover{filter:brightness(1.15);transform:translateY(-2px)}
+.ctrl-skip{background:var(--color-surface-2);border:2px solid var(--color-border);color:var(--color-text)}
+.ctrl-skip:hover{border-color:var(--color-gold);color:var(--color-gold-light)}
+.ctrl-skip.disabled{opacity:.4;pointer-events:none}
+.ctrl-tabu{background:linear-gradient(135deg,#c4233f,#801225);color:#fff;box-shadow:0 6px 20px rgba(196,35,63,.35)}
+.ctrl-tabu:hover{filter:brightness(1.15);transform:translateY(-2px)}
+
+.turn-stat-bar{display:flex;justify-content:space-between;align-items:center;background:var(--color-surface);border:1px solid var(--color-border);border-radius:var(--radius-pill);padding:.6rem 1.4rem;font-size:.85rem;color:var(--color-text-muted);margin-bottom:1rem}
+.turn-stat-bar strong{color:var(--color-gold-light)}
+.end-early-btn{width:100%;padding:.65rem;border-radius:var(--radius-pill);background:transparent;border:1.5px solid rgba(201,168,76,.4);color:var(--color-gold-light);font-size:.85rem;font-weight:600;cursor:pointer;transition:all var(--transition)}
+.end-early-btn:hover{background:rgba(201,168,76,.12);border-color:var(--color-gold)}
+
+/* RESULTS SCREEN */
+.tabu-results{display:none;max-width:680px;margin-inline:auto;background:var(--color-surface);border:2px solid var(--color-border);border-radius:var(--radius-lg);padding:3rem clamp(1.2rem,4vw,2.5rem);text-align:center}
+.results-trophy{font-size:4.5rem;margin-bottom:.5rem;animation:bounce 1.5s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.results-title{font-family:var(--font-display);font-size:2.4rem;font-weight:700;color:#fff;margin-bottom:.4rem}
+.results-winner{font-family:var(--font-display);font-size:1.4rem;font-weight:700;color:var(--color-gold-light);margin-bottom:2rem}
+
+.results-table{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;margin-bottom:2rem}
+.res-row{display:flex;justify-content:space-between;align-items:center;padding:1rem 1.5rem;border-bottom:1px solid var(--color-border)}
+.res-row:last-child{border-bottom:none}
+.res-row.champion{background:rgba(201,168,76,.12);border-left:4px solid var(--color-gold)}
+.res-name{font-weight:700;color:var(--color-text);font-size:1.05rem;display:flex;align-items:center;gap:.6rem}
+.res-score{font-family:var(--font-display);font-size:1.4rem;font-weight:800;color:var(--color-gold-light)}
+
+.results-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.res-btn{padding:.9rem 2.2rem;border-radius:var(--radius-pill);font-family:var(--font-display);font-size:1rem;font-weight:700;border:none;cursor:pointer;transition:all var(--transition)}
+.res-btn-primary{background:linear-gradient(135deg,var(--color-gold),var(--color-crimson));color:#fff}
+.res-btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 25px rgba(201,168,76,.35)}
+.res-btn-secondary{background:var(--color-surface-2);border:1.5px solid var(--color-border);color:var(--color-text)}
+.res-btn-secondary:hover{border-color:var(--color-gold);color:var(--color-gold-light)}
+
+/* Review Drawer at end */
+.results-review-area{margin-top:2.5rem;text-align:left;border-top:1px solid var(--color-border);padding-top:1.5rem}
+.results-review-title{font-family:var(--font-display);font-size:1.15rem;font-weight:700;color:var(--color-gold-light);margin-bottom:1rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.results-review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:.8rem;max-height:360px;overflow-y:auto;padding-right:.4rem}
+.review-card{background:var(--color-surface-2);border:1px solid var(--color-border);border-radius:var(--radius-sm);padding:.8rem;font-size:.8rem}
+.review-word{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.review-meaning{color:var(--color-gold-light);font-size:.78rem;margin-bottom:.4rem}
+.review-forbidden{color:var(--color-text-muted);font-size:.72rem}
+
+@media(max-width:768px){
+  .mode-cards{grid-template-columns:1fr}
+  .game-controls{grid-template-columns:1fr;gap:.75rem}
+  .word-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<header class="site-header" id="site-header">
+  <nav class="navbar" role="navigation" aria-label="Ana Navigasyon">
+    <a href="index.html" class="brand" style="display:flex;align-items:center;gap:10px">
+      <img src="assets/proje_logo_clean.png" alt="Proje Logosu" style="height:34px;width:auto;border-radius:50%;box-shadow:0 0 8px rgba(201,168,76,0.3)" />
+      <span class="brand-text">Dilimizin Zenginlikleri</span>
+    </a>
+    <button class="hamburger" id="hamburger-btn" aria-label="Menüyü aç" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links" role="menubar">
+      <li><a href="index.html" class="nav-link">Ana Sayfa</a></li>
+      <li><a href="sozluk.html" class="nav-link active" id="nav-sozluk-btn">📖 Sözlük</a></li>
+      <li><a href="harita.html" class="nav-map-btn">🗺 <span>Canlı Harita</span></a></li>
+      <li class="nav-dropdown" id="nav-etkinlikler-wrap">
+        <button class="nav-link nav-dropdown-btn" id="nav-etkinlikler" aria-haspopup="true" aria-expanded="false">
+          🎯 Etkinlikler Menüsü <span class="nav-chevron">▾</span>
+        </button>
+        <ul class="nav-dropdown-menu" id="nav-dropdown-menu" role="menu">
+          <li><a href="harita.html" class="nav-dropdown-item nav-dropdown-item--page">🗺️ Türk Dünyası Canlı Haritası</a></li>
+          <li><a href="index.html#mini-quiz" class="nav-dropdown-item">🏹 20 Soruluk Bilgi Sınavı</a></li>
+          <li><a href="tabu.html" class="nav-dropdown-item">🃏 Kadim Kelimeler Tabu Turnuvası</a></li>
+          <li><a href="divanu.html" target="_blank" class="nav-dropdown-item nav-dropdown-item--page">📜 Dîvânü Lugâti't-Türk <span class="nav-page-badge">↗</span></a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <!-- ════ HERO ════ -->
+  <section class="sozluk-hero">
+    <div class="container">
+      <div class="sozluk-tag">✦ Dîvânu Lugâti't-Türk · 100 Kadim Kelime · 10 Kategori ✦</div>
+      <h1 class="sozluk-title">Kadim <em>Kelimeler</em> Sözlüğü & Tabu</h1>
+      <p class="sozluk-sub">Kaşgarlı Mahmud'un XI. yüzyıldan günümüze ulaşan özgün 100 kelimesi, güncel TDK karşılıkları, köken/yapı analizleri ve kurallarını özgürce belirleyebileceğiniz etkileşimli Tabu oyunu.</p>
+    </div>
+  </section>
+
+  <!-- ════ TAB BAR ════ -->
+  <div class="tab-bar">
+    <div class="container">
+      <div class="tab-bar-inner">
+        <button class="tab-btn active" id="btn-tab-sozluk" data-tab="sozluk" onclick="activateTab('sozluk')">
+          <span>📖</span> 100 Kelimelik Sözlük
+        </button>
+        <button class="tab-btn" id="btn-tab-tabu" data-tab="tabu" onclick="activateTab('tabu')">
+          <span>🃏</span> Kadim Kelimeler Tabu Oyunu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═════════════════════════════════════════════════════════
+       PANEL 1: SÖZLÜK
+  ══════════════════════════════════════════════════════════ -->
+  <div class="tab-panel active" id="tab-sozluk">
+    <div class="dict-toolbar">
+      <div class="container">
+        <div class="dict-toolbar-top">
+          <div class="search-box">
+            <span style="color:var(--color-gold);font-size:1.1rem">🔍</span>
+            <input type="search" class="search-input" id="dict-search" placeholder="Kelime, DLT anlamı, TDK karşılığı veya köken ara…" autocomplete="off"/>
+          </div>
+          <button type="button" class="cat-btn" onclick="discoverRandomWord()" style="border-color:var(--color-gold);color:var(--color-gold-light)">
+            <span>🎲</span> Rastgele Kelime
+          </button>
+          <button type="button" class="cat-btn" id="btn-filter-fav" onclick="toggleFavFilter()">
+            <span>⭐</span> Favoriler (<span id="fav-count">0</span>)
+          </button>
+          <button type="button" class="cat-btn" onclick="window.print()" title="Sınıf içi fiziksel oyun veya pano sergisi için A4 formatında çıktı alın">
+            <span>🖨️</span> Sınıf & Pano Materyali Yazdır
+          </button>
+          <span class="word-count-badge" id="word-count">100 kelime</span>
+        </div>
+        <div class="cat-filters" id="cat-filters">
+          <button class="cat-btn active" data-cat="all">✦ Tümü (100)</button>
+          <button class="cat-btn" data-cat="dil">📚 01 Dil & Kültür</button>
+          <button class="cat-btn" data-cat="devlet">🏛️ 02 Devlet & Toplum</button>
+          <button class="cat-btn" data-cat="aile">👨‍👩‍👧 03 Aile & Akrabalık</button>
+          <button class="cat-btn" data-cat="savas">⚔️ 04 Savaş & Askerlik</button>
+          <button class="cat-btn" data-cat="hayvan">🐴 05 Atçılık & Hayvan</button>
+          <button class="cat-btn" data-cat="mutfak">🍞 06 Mutfak & Besin</button>
+          <button class="cat-btn" data-cat="esya">🏺 07 Giyim & Eşya</button>
+          <button class="cat-btn" data-cat="doga">🌿 08 Doğa & Coğrafya</button>
+          <button class="cat-btn" data-cat="tarim">🌾 09 Tarım & Emek</button>
+          <button class="cat-btn" data-cat="inanc">🕌 10 İnanç & Değer</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dict-section">
+      <div class="container">
+        <div id="dict-container"></div>
+        <div class="empty-msg" id="dict-empty">
+          <div class="em-icon">📭</div>
+          <h3>Eşleşen kelime bulunamadı</h3>
+          <p>Farklı bir arama terimi deneyebilir veya kategori filtresini değiştirebilirsiniz.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═════════════════════════════════════════════════════════
+       PANEL 2: TABU OYUNU
+  ══════════════════════════════════════════════════════════ -->
+  <div class="tab-panel" id="tab-tabu">
+    <div class="tabu-wrap">
+      <div class="container">
+
+        <!-- ── 1. SETUP SCREEN ── -->
+        <div class="tabu-setup" id="tabu-setup">
+          <h2 class="setup-title">🃏 Kadim Kelimeler <em>Tabu Turnuvası</em></h2>
+          <p class="setup-sub">Dîvânu Lugâti't-Türk'ün kadim kelimeleriyle eğlenerek öğrenin. Kuralları dilediğiniz gibi belirleyin!</p>
+
+          <!-- Oyun Modu Seçimi -->
+          <div class="setup-box">
+            <div class="setup-box-title"><span>👥</span> 1. Yarışma Biçimini Seçin</div>
+            <div class="mode-cards">
+              <div class="mode-card selected" id="mode-card-takim" onclick="setGameMode('takim')">
+                <div class="mode-icon">👥</div>
+                <div class="mode-name">Takım Modu</div>
+                <div class="mode-desc">Gruplar sırayla yarışır. Bir anlatıcı kendi takımına anlatır, takım puanları yarışır.</div>
+              </div>
+              <div class="mode-card" id="mode-card-solo" onclick="setGameMode('solo')">
+                <div class="mode-icon">🎤</div>
+                <div class="mode-name">Bireysel / Herkese Anlatım Modu</div>
+                <div class="mode-desc">Bir kişi ortaya çıkar ve tüm sınıfa anlatır; doğru tahmin eden oyuncu puan kazanır.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Takım / Oyuncu İsimleri -->
+          <div class="setup-box" id="team-box-section">
+            <div class="setup-box-title" id="participants-title"><span>🏷️</span> 2. Takımlar ve Katılımcılar</div>
+            <div class="setup-grid">
+              <div class="setup-field" id="team-count-field">
+                <label>Takım Sayısı (2 – 6): <span id="team-count-val">2</span></label>
+                <input type="range" class="setup-input" id="team-count-slider" min="2" max="6" value="2" oninput="updateTeamCount(this.value)"/>
+              </div>
+              <div class="setup-field" id="solo-count-field" style="display:none">
+                <label>Oyuncu Sayısı (2 – 12): <span id="solo-count-val">4</span></label>
+                <input type="range" class="setup-input" id="solo-count-slider" min="2" max="12" value="4" oninput="updatePlayerCount(this.value)"/>
+              </div>
+              <div class="setup-field">
+                <label>Toplam Tur Sayısı: <span id="round-count-val">3</span></label>
+                <input type="range" class="setup-input" id="round-slider" min="1" max="10" value="3" oninput="document.getElementById('round-count-val').textContent=this.value"/>
+              </div>
+            </div>
+            <div class="team-inputs-grid" id="team-inputs-container"></div>
+          </div>
+
+          <!-- Kuralları Özelleştirme -->
+          <div class="setup-box">
+            <div class="setup-box-title"><span>⚙️</span> 3. Oyun Kurallarını Belirleyin</div>
+            <div class="setup-grid">
+              <div class="setup-field">
+                <label>Tur Süresi: <span id="time-val">60 sn</span></label>
+                <select class="setup-select" id="rule-time" onchange="document.getElementById('time-val').textContent=this.value+' sn'">
+                  <option value="30">30 saniye (Hızlı)</option>
+                  <option value="45">45 saniye</option>
+                  <option value="60" selected>60 saniye (Standart)</option>
+                  <option value="90">90 saniye (Rahat)</option>
+                  <option value="120">120 saniye (Uzun)</option>
+                </select>
+              </div>
+              <div class="setup-field">
+                <label>Pas Hakkı (Her Tur İçin)</label>
+                <select class="setup-select" id="rule-skip-count">
+                  <option value="1">1 Pas</option>
+                  <option value="2">2 Pas</option>
+                  <option value="3" selected>3 Pas</option>
+                  <option value="5">5 Pas</option>
+                  <option value="999">Sınırsız Pas</option>
+                </select>
+              </div>
+              <div class="setup-field">
+                <label>Pas Cezası</label>
+                <select class="setup-select" id="rule-skip-penalty">
+                  <option value="0" selected>Ceza Yok (0 Puan)</option>
+                  <option value="1">-1 Puan Düş</option>
+                </select>
+              </div>
+              <div class="setup-field">
+                <label>Tabu / Yasak Kelime Cezası</label>
+                <select class="setup-select" id="rule-tabu-penalty">
+                  <option value="1" selected>-1 Puan Düş</option>
+                  <option value="2">-2 Puan Düş</option>
+                  <option value="0">Ceza Yok (Sıradaki Karta Geç)</option>
+                </select>
+              </div>
+              <div class="setup-field">
+                <label>Kelime Havuzu / Kategori</label>
+                <select class="setup-select" id="rule-cat">
+                  <option value="all" selected>Tüm Kategoriler (100 Kelime)</option>
+                  <option value="dil">01 Dil, Bilgi ve Sözlü Kültür</option>
+                  <option value="devlet">02 Devlet, Yönetim ve Toplum</option>
+                  <option value="aile">03 Aile ve Akrabalık</option>
+                  <option value="savas">04 Savaş, Silah ve Askerlik</option>
+                  <option value="hayvan">05 Atçılık ve Hayvancılık</option>
+                  <option value="mutfak">06 Mutfak ve Beslenme</option>
+                  <option value="esya">07 Giyim, Bakım ve Gündelik Eşya</option>
+                  <option value="doga">08 Doğa, İklim ve Coğrafya</option>
+                  <option value="tarim">09 Tarım, Emek ve Değiş-Tokuş</option>
+                  <option value="inanc">10 İnanç, Değer, Tören ve Oyun</option>
+                </select>
+              </div>
+              <div class="setup-field">
+                <label>Ses Efektleri</label>
+                <select class="setup-select" id="rule-sound">
+                  <option value="1" selected>🔊 Sesler Açık</option>
+                  <option value="0">🔇 Sessiz Mod</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button class="start-btn" onclick="initAndStartGame()">🃏 Belirlenen Kurallarla Turnuvayı Başlat</button>
+        </div>
+
+        <!-- ── 2. WAITING TURN SCREEN ── -->
+        <div class="tabu-waiting" id="tabu-waiting">
+          <div class="waiting-badge" id="waiting-round-badge">Tur 1 / 3</div>
+          <div class="waiting-icon">⏳</div>
+          <h2 class="waiting-title" id="waiting-title">Sıra: Takım 1</h2>
+          <p class="waiting-desc" id="waiting-desc">Anlatıcı ve dinleyiciler hazır olduğunda turu başlatın!</p>
+          <button class="start-turn-btn" onclick="beginActiveTurn()">▶ Süreyi Başlat</button>
+        </div>
+
+        <!-- ── 3. ACTIVE GAME SCREEN ── -->
+        <div class="tabu-game" id="tabu-game">
+          <!-- Top info bar -->
+          <div class="game-header-bar">
+            <div class="game-active-entity" id="game-active-label">👥 Takım 1</div>
+            <div class="game-round-info" id="game-round-label">Tur 1 / 3</div>
+            <div class="scores-stream" id="game-scores-stream"></div>
+          </div>
+
+          <!-- Timer -->
+          <div class="game-timer-area">
+            <div class="timer-radial" id="timer-box">60</div>
+          </div>
+
+          <!-- Active Card -->
+          <div class="play-card" id="play-card">
+            <span class="play-card-no" id="card-no">#01</span>
+            <span class="play-card-cat" id="card-cat">01 DİL, BİLGİ VE SÖZLÜ KÜLTÜR</span>
+            <div class="play-main-word" id="card-word">bilig</div>
+            <div class="play-main-dlt" id="card-dlt">"bilgi, bilgelik"</div>
+
+            <!-- Forbidden Words -->
+            <div class="play-forbidden-box">
+              <span class="play-forbidden-tag">🚫 YASAKLI KELİMELER</span>
+              <div class="play-forbidden-words" id="card-forbidden"></div>
+            </div>
+          </div>
+
+          <!-- Current Turn Stats -->
+          <div class="turn-stat-bar">
+            <span>Doğru: <strong id="stat-correct">0</strong></span>
+            <span>Tabu: <strong id="stat-tabu" style="color:#ff6688">0</strong></span>
+            <span>Kalan Pas: <strong id="stat-pass">3</strong></span>
+          </div>
+
+          <!-- Controls -->
+          <div class="game-controls">
+            <button class="ctrl-btn ctrl-correct" onclick="onBtnCorrect()">
+              <span>✔ DOĞRU</span>
+              <small>+1 Puan [Space / Enter]</small>
+            </button>
+            <button class="ctrl-btn ctrl-skip" id="btn-skip" onclick="onBtnSkip()">
+              <span>↪ PAS</span>
+              <small id="skip-btn-sub">Kalan: 3 [P tuşu]</small>
+            </button>
+            <button class="ctrl-btn ctrl-tabu" onclick="onBtnTabu()">
+              <span>🚫 TABU!</span>
+              <small id="tabu-btn-sub">-1 Puan [T tuşu]</small>
+            </button>
+          </div>
+
+          <button class="end-early-btn" onclick="finishTurn()">⏱ Turu Erken Bitir</button>
+        </div>
+
+        <!-- ── 4. RESULTS SCREEN ── -->
+        <div class="tabu-results" id="tabu-results">
+          <div class="results-trophy">🏆</div>
+          <h2 class="results-title">Turnuva Tamamlandı!</h2>
+          <div class="results-winner" id="results-winner-text">🥇 Şampiyon: Takım 1</div>
+          
+          <div class="results-table" id="results-table"></div>
+
+          <div class="results-actions">
+            <button class="res-btn res-btn-primary" onclick="restartSameSettings()">🔄 Aynı Kurallarla Yeniden Oyna</button>
+            <button class="res-btn res-btn-secondary" onclick="backToSetup()">⚙️ Kuralları Değiştir</button>
+          </div>
+
+          <!-- Review words played -->
+          <div class="results-review-area">
+            <div class="results-review-title">
+              <span>📚 Bu Oyunda Karşılaşılan Kelimeler (<span id="review-count">0</span>)</span>
+            </div>
+            <div class="results-review-grid" id="review-grid"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ════ FOOTER ════ -->
+<footer class="site-footer">
+  <div class="footer-inner container">
+    <div class="footer-brand">
+      <span class="brand-icon">✦</span>
+      <span class="brand-text">Dilimizin Zenginlikleri</span>
+      <p class="footer-tagline">Dîvânu Lugâti't-Türk'ün 100 kadim kelimesiyle Türkçemizin köklerine yolculuk.</p>
+    </div>
+    <nav class="footer-nav">
+      <a href="index.html">Ana Sayfa</a>
+      <a href="index.html#hakkinda">Hakkında</a>
+      <a href="sozluk.html">Sözlük</a>
+      <a href="tabu.html">Tabu Oyunu</a>
+      <a href="harita.html">Canlı Harita</a>
+    </nav>
+    <p class="footer-copy">© 2025–2026 Dilimizin Zenginlikleri Projesi · Dîvânu Lugâti't-Türk Kelime Arkeolojisi</p>
+  </div>
+</footer>
+
+<!-- ════ SCRIPTS ════ -->
+<script src="words.js"></script>
+<script>
+(function(){
+'use strict';
+
+/* ── NAV TOGGLES ── */
+const header=document.getElementById('site-header');
+window.addEventListener('scroll',()=>header.classList.toggle('scrolled',window.scrollY>60),{passive:true});
+const hamburger=document.getElementById('hamburger-btn');
+const navMenu=document.getElementById('nav-links');
+hamburger.addEventListener('click',()=>{
+  const open=navMenu.classList.toggle('open');
+  hamburger.classList.toggle('open',open);
+  hamburger.setAttribute('aria-expanded',open);
+});
+const dropBtn=document.getElementById('nav-etkinlikler');
+const dropMenu=document.getElementById('nav-dropdown-menu');
+if(dropBtn){
+  dropBtn.addEventListener('click',e=>{
+    e.stopPropagation();
+    const o=dropMenu.classList.toggle('open');
+    dropBtn.classList.toggle('dropdown-open',o);
+    dropBtn.setAttribute('aria-expanded',o);
+  });
+  document.addEventListener('click',e=>{
+    if(!dropBtn.contains(e.target)&&!dropMenu.contains(e.target)){
+      dropMenu.classList.remove('open');
+      dropBtn.classList.remove('dropdown-open');
+    }
+  });
+}
+
+/* ── TAB SWITCHING ── */
+window.activateTab=function(tabId){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  const btn=document.getElementById('btn-tab-'+tabId);
+  const panel=document.getElementById('tab-'+tabId);
+  if(btn) btn.classList.add('active');
+  if(panel) panel.classList.add('active');
+  window.location.hash=tabId;
+};
+
+// Check hash on load
+if(window.location.hash==='#tabu'){
+  activateTab('tabu');
+}
+
+/* ═════════════════════════════════════════════════════════════
+   1. SÖZLÜK RENDERER & ETKİLEŞİM
+══════════════════════════════════════════════════════════════ */
+const dictContainer=document.getElementById('dict-container');
+const dictEmpty=document.getElementById('dict-empty');
+const wordCountBadge=document.getElementById('word-count');
+const searchInput=document.getElementById('dict-search');
+let activeCat='all';
+let showOnlyFavorites=false;
+let favorites=new Set(JSON.parse(localStorage.getItem('dlt_favs')||'[]'));
+
+function updateFavCountBadge(){
+  const el=document.getElementById('fav-count');
+  if(el) el.textContent=favorites.size;
+}
+
+window.toggleFavFilter=function(){
+  showOnlyFavorites=!showOnlyFavorites;
+  const btn=document.getElementById('btn-filter-fav');
+  if(btn){
+    btn.classList.toggle('active',showOnlyFavorites);
+    btn.style.background=showOnlyFavorites?'var(--color-gold)':'';
+    btn.style.color=showOnlyFavorites?'#120a02':'';
+  }
+  renderDictionary();
+};
+
+window.toggleFav=function(no,event){
+  if(event) event.stopPropagation();
+  if(favorites.has(no)){
+    favorites.delete(no);
+  }else{
+    favorites.add(no);
+  }
+  localStorage.setItem('dlt_favs',JSON.stringify([...favorites]));
+  updateFavCountBadge();
+  renderDictionary();
+};
+
+window.speakWord=function(text,event){
+  if(event) event.stopPropagation();
+  if('speechSynthesis' in window){
+    window.speechSynthesis.cancel();
+    const u=new SpeechSynthesisUtterance(text);
+    u.lang='tr-TR';
+    u.rate=0.88;
+    window.speechSynthesis.speak(u);
+  }
+};
+
+window.discoverRandomWord=function(){
+  const randomWord=WORDS[Math.floor(Math.random()*WORDS.length)];
+  activeCat='all';
+  showOnlyFavorites=false;
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.cat-btn[data-cat="all"]')?.classList.add('active');
+  searchInput.value=randomWord.k;
+  renderDictionary();
+  setTimeout(()=>{
+    const el=document.getElementById('card-w-'+randomWord.no);
+    if(el){
+      el.scrollIntoView({behavior:'smooth',block:'center'});
+      el.classList.add('highlighted');
+      setTimeout(()=>el.classList.remove('highlighted'),2500);
+      speakWord(randomWord.k);
+    }
+  },100);
+};
+
+function renderDictionary(){
+  updateFavCountBadge();
+  const q=searchInput.value.trim().toLocaleLowerCase('tr');
+  const filtered=WORDS.filter(w=>{
+    if(showOnlyFavorites&&!favorites.has(w.no)) return false;
+    const matchCat=activeCat==='all'||w.c===activeCat;
+    if(!matchCat) return false;
+    if(!q) return true;
+    return (
+      w.k.toLocaleLowerCase('tr').includes(q)||
+      w.d.toLocaleLowerCase('tr').includes(q)||
+      w.tdk.toLocaleLowerCase('tr').includes(q)||
+      (w.koken&&w.koken.toLocaleLowerCase('tr').includes(q))||
+      (w.baglam&&w.baglam.toLocaleLowerCase('tr').includes(q))
+    );
+  });
+
+  wordCountBadge.textContent=filtered.length+' kelime';
+  dictContainer.innerHTML='';
+
+  if(!filtered.length){
+    dictEmpty.classList.add('show');
+    return;
+  }
+  dictEmpty.classList.remove('show');
+
+  // Group by category
+  const groups={};
+  filtered.forEach(w=>{
+    if(!groups[w.c]) groups[w.c]=[];
+    groups[w.c].push(w);
+  });
+
+  const catOrder=['dil','devlet','aile','savas','hayvan','mutfak','esya','doga','tarim','inanc'];
+  catOrder.forEach(catKey=>{
+    if(!groups[catKey]) return;
+    const catMeta=DLT_CATEGORIES[catKey];
+    const sec=document.createElement('div');
+    sec.className='cat-group';
+    sec.innerHTML=`
+      <div class="cat-group-head">
+        <h2 class="cat-group-title"><span>${catMeta.icon}</span> ${catMeta.no} ${catMeta.name}</h2>
+        <span class="cat-group-desc">${catMeta.desc}</span>
+      </div>
+      <div class="word-grid" id="grid-${catKey}"></div>
+    `;
+    dictContainer.appendChild(sec);
+    const grid=sec.querySelector('.word-grid');
+
+    groups[catKey].forEach(w=>{
+      const padNo=String(w.no).padStart(2,'0');
+      const card=document.createElement('article');
+      card.className='word-card';
+      card.id='card-w-'+w.no;
+      const isFav=favorites.has(w.no);
+
+      const forbiddenChipsHtml=w.yasak.map(y=>`<span class="wc-tabu-chip">${y}</span>`).join('');
+
+      card.innerHTML=`
+        <div>
+          <div class="wc-top">
+            <div style="display:flex;align-items:center;gap:0.4rem">
+              <span class="wc-word">${w.k}</span>
+              <button type="button" class="wc-icon-btn" onclick="speakWord('${w.k}',event)" title="Sesli Dinle">🔊</button>
+            </div>
+            <div style="display:flex;align-items:center;gap:0.4rem">
+              <button type="button" class="wc-icon-btn ${isFav?'active':''}" onclick="toggleFav(${w.no},event)" title="${isFav?'Favorilerden Çıkar':'Favorilere Ekle'}">${isFav?'⭐':'☆'}</button>
+              <span class="wc-no">#${padNo}</span>
+            </div>
+          </div>
+
+          <div class="wc-field">
+            <span class="wc-field-label">DLT ANLAMI</span>
+            <div class="wc-dlt">“${w.d}”</div>
+          </div>
+
+          <div class="wc-field">
+            <span class="wc-field-label">GÜNCEL TDK KARŞILIĞI</span>
+            <div class="wc-tdk">${w.tdk}</div>
+          </div>
+
+          <div class="wc-field">
+            <span class="wc-field-label">KÖKEN / YAPI</span>
+            <div class="wc-koken">${w.koken}</div>
+          </div>
+
+          <div class="wc-field">
+            <span class="wc-field-label">XI. YY. BAĞLAMI</span>
+            <div class="wc-baglam">${w.baglam}</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="wc-tabu-drawer" id="tabu-drawer-${w.no}">
+            <div class="wc-tabu-drawer-title"><span>🚫</span> TABU YASAKLI SÖZCÜKLERİ:</div>
+            <div class="wc-tabu-chips">${forbiddenChipsHtml}</div>
+          </div>
+
+          <div class="wc-actions">
+            <button type="button" class="wc-tabu-btn" onclick="toggleTabuDrawer(${w.no})">
+              <span>🃏</span> Tabu Kartı Gör
+            </button>
+            <span class="wc-category-tag">${catMeta.no} · ${catMeta.name.split(',')[0]}</span>
+          </div>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  });
+}
+
+window.toggleTabuDrawer=function(wordNo){
+  const drawer=document.getElementById('tabu-drawer-'+wordNo);
+  if(drawer) drawer.classList.toggle('open');
+};
+
+searchInput.addEventListener('input',renderDictionary);
+document.querySelectorAll('.cat-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    activeCat=btn.dataset.cat;
+    renderDictionary();
+  });
+});
+renderDictionary();
+
+/* ═════════════════════════════════════════════════════════════
+   2. WEB AUDIO SES SİNTESİ (Harici dosya gerektirmez)
+══════════════════════════════════════════════════════════════ */
+let audioCtx=null;
+function getAudioContext(){
+  if(!audioCtx){
+    const AudioContextClass=window.AudioContext||window.webkitAudioContext;
+    if(AudioContextClass) audioCtx=new AudioContextClass();
+  }
+  if(audioCtx&&audioCtx.state==='suspended'){audioCtx.resume();}
+  return audioCtx;
+}
+
+function playSound(type){
+  const isSoundEnabled=document.getElementById('rule-sound')?.value==='1';
+  if(!isSoundEnabled) return;
+  const ctx=getAudioContext();
+  if(!ctx) return;
+
+  const now=ctx.currentTime;
+  const osc=ctx.createOscillator();
+  const gain=ctx.createGain();
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  if(type==='correct'){
+    // Bright 2-tone chime (G5 -> C6)
+    osc.type='triangle';
+    osc.frequency.setValueAtTime(783.99,now);
+    osc.frequency.setValueAtTime(1046.50,now+0.1);
+    gain.gain.setValueAtTime(0.25,now);
+    gain.gain.exponentialRampToValueAtTime(0.001,now+0.45);
+    osc.start(now);
+    osc.stop(now+0.45);
+  }else if(type==='tabu'){
+    // Low harsh buzzer
+    osc.type='sawtooth';
+    osc.frequency.setValueAtTime(150,now);
+    gain.gain.setValueAtTime(0.3,now);
+    gain.gain.exponentialRampToValueAtTime(0.001,now+0.35);
+    osc.start(now);
+    osc.stop(now+0.35);
+  }else if(type==='skip'){
+    // Gentle blip
+    osc.type='sine';
+    osc.frequency.setValueAtTime(440,now);
+    gain.gain.setValueAtTime(0.2,now);
+    gain.gain.exponentialRampToValueAtTime(0.001,now+0.18);
+    osc.start(now);
+    osc.stop(now+0.18);
+  }else if(type==='tick'){
+    // Short urgent tick
+    osc.type='sine';
+    osc.frequency.setValueAtTime(880,now);
+    gain.gain.setValueAtTime(0.15,now);
+    gain.gain.exponentialRampToValueAtTime(0.001,now+0.08);
+    osc.start(now);
+    osc.stop(now+0.08);
+  }else if(type==='gameover'){
+    // Fanfare / 3-chord
+    [523.25,659.25,783.99,1046.50].forEach((freq,idx)=>{
+      const o=ctx.createOscillator();
+      const g=ctx.createGain();
+      o.connect(g);g.connect(ctx.destination);
+      o.type='triangle';
+      o.frequency.setValueAtTime(freq,now+idx*0.12);
+      g.gain.setValueAtTime(0.2,now+idx*0.12);
+      g.gain.exponentialRampToValueAtTime(0.001,now+idx*0.12+0.6);
+      o.start(now+idx*0.12);
+      o.stop(now+idx*0.12+0.6);
+    });
+  }
+}
+
+/* ═════════════════════════════════════════════════════════════
+   3. TABU OYUN MOTORU (Gelişmiş Kurallar & 2 Mod)
+══════════════════════════════════════════════════════════════ */
+let gameMode='takim'; // 'takim' veya 'solo'
+let teams=[];         // [{id, name, score}]
+let currentTeamIdx=0;
+let currentRound=1;
+let maxRounds=3;
+let turnDuration=60;
+let remainingTime=60;
+let timerInterval=null;
+
+let maxSkipsPerTurn=3;
+let currentSkipsLeft=3;
+let skipPenalty=0;
+let tabuPenalty=1;
+
+let deck=[];
+let deckIdx=0;
+let currentWord=null;
+let turnCorrect=0;
+let turnTabu=0;
+let playedWordsHistory=[]; // all cards played in this game session
+
+window.setGameMode=function(mode){
+  gameMode=mode;
+  document.getElementById('mode-card-takim').classList.toggle('selected',mode==='takim');
+  document.getElementById('mode-card-solo').classList.toggle('selected',mode==='solo');
+  
+  if(mode==='takim'){
+    document.getElementById('team-count-field').style.display='';
+    document.getElementById('solo-count-field').style.display='none';
+    document.getElementById('participants-title').innerHTML='<span>👥</span> 2. Takım İsimleri';
+    updateTeamCount(document.getElementById('team-count-slider').value);
+  }else{
+    document.getElementById('team-count-field').style.display='none';
+    document.getElementById('solo-count-field').style.display='';
+    document.getElementById('participants-title').innerHTML='<span>🎤</span> 2. Oyuncu İsimleri';
+    updatePlayerCount(document.getElementById('solo-count-slider').value);
+  }
+};
+
+window.updateTeamCount=function(n){
+  document.getElementById('team-count-val').textContent=n;
+  const container=document.getElementById('team-inputs-container');
+  container.innerHTML='';
+  const defaultNames=['Ötüken Takımı','Balasagun Takımı','Kaşgar Takımı','Semerkant Takımı','Kutadgu Takımı','Yenisey Takımı'];
+  for(let i=0;i<n;i++){
+    const inp=document.createElement('input');
+    inp.type='text';
+    inp.className='team-name-input';
+    inp.value=defaultNames[i]||('Takım '+(i+1));
+    inp.placeholder='Takım '+(i+1)+' adı';
+    container.appendChild(inp);
+  }
+};
+
+window.updatePlayerCount=function(n){
+  document.getElementById('solo-count-val').textContent=n;
+  const container=document.getElementById('team-inputs-container');
+  container.innerHTML='';
+  for(let i=0;i<n;i++){
+    const inp=document.createElement('input');
+    inp.type='text';
+    inp.className='team-name-input';
+    inp.value='Oyuncu '+(i+1);
+    inp.placeholder='Oyuncu '+(i+1)+' adı';
+    container.appendChild(inp);
+  }
+};
+updateTeamCount(2);
+
+function shuffleArray(arr){
+  const res=[...arr];
+  for(let i=res.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [res[i],res[j]]=[res[j],res[i]];
+  }
+  return res;
+}
+
+window.initAndStartGame=function(){
+  // Read Rules
+  turnDuration=parseInt(document.getElementById('rule-time').value,10)||60;
+  maxRounds=parseInt(document.getElementById('round-slider').value,10)||3;
+  maxSkipsPerTurn=parseInt(document.getElementById('rule-skip-count').value,10);
+  skipPenalty=parseInt(document.getElementById('rule-skip-penalty').value,10)||0;
+  tabuPenalty=parseInt(document.getElementById('rule-tabu-penalty').value,10);
+  const selectedCat=document.getElementById('rule-cat').value;
+
+  // Filter Pool
+  let pool=[...WORDS];
+  if(selectedCat!=='all'){
+    pool=pool.filter(w=>w.c===selectedCat);
+  }
+  deck=shuffleArray(pool);
+  deckIdx=0;
+  playedWordsHistory=[];
+
+  // Build Teams / Players
+  const nameInputs=document.querySelectorAll('#team-inputs-container .team-name-input');
+  teams=[];
+  nameInputs.forEach((inp,idx)=>{
+    const title=inp.value.trim()||((gameMode==='takim'?'Takım ':'Oyuncu ')+(idx+1));
+    teams.push({
+      id:idx,
+      name:title,
+      score:0,
+      correctCount:0,
+      tabuCount:0,
+      skipCount:0
+    });
+  });
+
+  currentTeamIdx=0;
+  currentRound=1;
+
+  document.getElementById('tabu-setup').style.display='none';
+  document.getElementById('tabu-results').style.display='none';
+  showWaitingScreen();
+};
+
+function showWaitingScreen(){
+  clearInterval(timerInterval);
+  document.getElementById('tabu-game').style.display='none';
+  document.getElementById('tabu-waiting').style.display='block';
+
+  const t=teams[currentTeamIdx];
+  document.getElementById('waiting-round-badge').textContent='Tur '+currentRound+' / '+maxRounds;
+  document.getElementById('waiting-title').textContent='Sıra: '+t.name;
+  
+  if(gameMode==='takim'){
+    document.getElementById('waiting-desc').innerHTML=
+      `<strong>${t.name}</strong> anlatıcısı öne gelsin. Takım üyeleri kelimeyi tahmin etmeye çalışacak.<br>Yasaklı kelimeleri kullanmamaya dikkat edin!`;
+  }else{
+    document.getElementById('waiting-desc').innerHTML=
+      `Anlatıcı: <strong>${t.name}</strong>. Herkese anlatacak, ilk doğru bilen puan alacak veya süre boyunca en çok kelimeyi anlatan lider olacak.`;
+  }
+}
+
+window.beginActiveTurn=function(){
+  document.getElementById('tabu-waiting').style.display='none';
+  document.getElementById('tabu-game').style.display='block';
+
+  turnCorrect=0;
+  turnTabu=0;
+  currentSkipsLeft=maxSkipsPerTurn;
+  remainingTime=turnDuration;
+
+  document.getElementById('stat-correct').textContent='0';
+  document.getElementById('stat-tabu').textContent='0';
+  updateSkipButtonUi();
+  updateScoresStream();
+
+  const t=teams[currentTeamIdx];
+  document.getElementById('game-active-label').textContent=(gameMode==='takim'?'👥 ':'🎤 ')+t.name;
+  document.getElementById('game-round-label').textContent='Tur '+currentRound+' / '+maxRounds;
+
+  nextCard();
+  runTimer();
+};
+
+function updateScoresStream(){
+  const el=document.getElementById('game-scores-stream');
+  el.innerHTML=teams.map((t,idx)=>`
+    <div class="score-pill ${idx===currentTeamIdx?'active':''}">
+      ${t.name}: <strong>${t.score}</strong>
+    </div>
+  `).join('');
+}
+
+function updateSkipButtonUi(){
+  const btn=document.getElementById('btn-skip');
+  const sub=document.getElementById('skip-btn-sub');
+  if(maxSkipsPerTurn>=999){
+    document.getElementById('stat-pass').textContent='Sınırsız';
+    sub.textContent='Sınırsız [P tuşu]';
+    btn.classList.remove('disabled');
+  }else{
+    document.getElementById('stat-pass').textContent=currentSkipsLeft;
+    sub.textContent=`Kalan: ${currentSkipsLeft} [P tuşu]`;
+    if(currentSkipsLeft<=0){
+      btn.classList.add('disabled');
+    }else{
+      btn.classList.remove('disabled');
+    }
+  }
+}
+
+function nextCard(){
+  if(deckIdx>=deck.length){
+    // Reshuffle if deck finished
+    deck=shuffleArray(WORDS);
+    deckIdx=0;
+  }
+  currentWord=deck[deckIdx++];
+  playedWordsHistory.push(currentWord);
+
+  const catMeta=DLT_CATEGORIES[currentWord.c]||{no:'00',name:'Kategori'};
+  document.getElementById('card-no').textContent='#'+String(currentWord.no).padStart(2,'0');
+  document.getElementById('card-cat').textContent=`${catMeta.no} ${catMeta.name.toUpperCase()}`;
+  document.getElementById('card-word').textContent=currentWord.k;
+  document.getElementById('card-dlt').textContent=`“${currentWord.d}”`;
+
+  const forEl=document.getElementById('card-forbidden');
+  forEl.innerHTML=currentWord.yasak.map(w=>`<div class="play-forbidden-word">${w}</div>`).join('');
+}
+
+function runTimer(){
+  clearInterval(timerInterval);
+  updateTimerDisplay();
+  timerInterval=setInterval(()=>{
+    remainingTime--;
+    updateTimerDisplay();
+    if(remainingTime<=5&&remainingTime>0){
+      playSound('tick');
+    }
+    if(remainingTime<=0){
+      clearInterval(timerInterval);
+      finishTurn();
+    }
+  },1000);
+}
+
+function updateTimerDisplay(){
+  const el=document.getElementById('timer-box');
+  el.textContent=remainingTime;
+  el.classList.toggle('urgent',remainingTime<=10);
+}
+
+/* ── BUTTON HANDLERS ── */
+window.onBtnCorrect=function(){
+  if(remainingTime<=0) return;
+  playSound('correct');
+  turnCorrect++;
+  teams[currentTeamIdx].score+=1;
+  teams[currentTeamIdx].correctCount+=1;
+  document.getElementById('stat-correct').textContent=turnCorrect;
+  updateScoresStream();
+  nextCard();
+};
+
+window.onBtnSkip=function(){
+  if(remainingTime<=0) return;
+  if(maxSkipsPerTurn<999&&currentSkipsLeft<=0) return;
+
+  playSound('skip');
+  if(maxSkipsPerTurn<999) currentSkipsLeft--;
+  teams[currentTeamIdx].skipCount+=1;
+
+  if(skipPenalty>0){
+    teams[currentTeamIdx].score=Math.max(0,teams[currentTeamIdx].score-skipPenalty);
+  }
+  updateSkipButtonUi();
+  updateScoresStream();
+  nextCard();
+};
+
+window.onBtnTabu=function(){
+  if(remainingTime<=0) return;
+  playSound('tabu');
+  turnTabu++;
+  teams[currentTeamIdx].tabuCount+=1;
+  teams[currentTeamIdx].score=Math.max(0,teams[currentTeamIdx].score-tabuPenalty);
+  document.getElementById('stat-tabu').textContent=turnTabu;
+  updateScoresStream();
+  nextCard();
+};
+
+window.finishTurn=function(){
+  clearInterval(timerInterval);
+  document.getElementById('tabu-game').style.display='none';
+
+  // Move to next team / round
+  currentTeamIdx=(currentTeamIdx+1)%teams.length;
+  if(currentTeamIdx===0){
+    currentRound++;
+  }
+
+  if(currentRound>maxRounds){
+    showFinalResults();
+  }else{
+    showWaitingScreen();
+  }
+};
+
+function showFinalResults(){
+  playSound('gameover');
+  document.getElementById('tabu-waiting').style.display='none';
+  document.getElementById('tabu-game').style.display='none';
+  document.getElementById('tabu-results').style.display='block';
+
+  const sorted=[...teams].sort((a,b)=>b.score-a.score);
+  const winner=sorted[0];
+
+  document.getElementById('results-winner-text').innerHTML=
+    `🥇 Şampiyon: <strong>${winner.name}</strong> (${winner.score} Puan)`;
+
+  const tbl=document.getElementById('results-table');
+  tbl.innerHTML=sorted.map((t,idx)=>`
+    <div class="res-row ${idx===0?'champion':''}">
+      <span class="res-name">
+        ${idx===0?'🥇':idx===1?'🥈':idx===2?'🥉':'✦'} ${t.name}
+      </span>
+      <div style="font-size:0.8rem;color:var(--color-text-muted)">
+        ${t.correctCount} Doğru · ${t.tabuCount} Tabu · ${t.skipCount} Pas
+      </div>
+      <span class="res-score">${t.score} P</span>
+    </div>
+  `).join('');
+
+  // Review unique played words
+  const uniquePlayed=[];
+  const seenIds=new Set();
+  playedWordsHistory.forEach(w=>{
+    if(!seenIds.has(w.no)){
+      seenIds.add(w.no);
+      uniquePlayed.push(w);
+    }
+  });
+
+  document.getElementById('review-count').textContent=uniquePlayed.length;
+  const reviewGrid=document.getElementById('review-grid');
+  reviewGrid.innerHTML=uniquePlayed.map(w=>`
+    <div class="review-card">
+      <div class="review-word">${w.k} <small style="color:var(--color-gold);font-size:0.75rem">#${w.no}</small></div>
+      <div class="review-meaning">“${w.d}”</div>
+      <div class="review-forbidden"><strong>Yasaklı:</strong> ${w.yasak.join(', ')}</div>
+    </div>
+  `).join('');
+}
+
+window.restartSameSettings=function(){
+  document.getElementById('tabu-results').style.display='none';
+  initAndStartGame();
+};
+
+window.backToSetup=function(){
+  document.getElementById('tabu-results').style.display='none';
+  document.getElementById('tabu-waiting').style.display='none';
+  document.getElementById('tabu-game').style.display='none';
+  document.getElementById('tabu-setup').style.display='block';
+};
+
+/* ── KEYBOARD SHORTCUTS FOR ACTIVE GAME ── */
+document.addEventListener('keydown',e=>{
+  // Only trigger when game is visible
+  if(document.getElementById('tabu-game').style.display==='block'){
+    if(e.code==='Space'||e.key==='Enter'){
+      e.preventDefault();
+      onBtnCorrect();
+    }else if(e.key==='p'||e.key==='P'){
+      e.preventDefault();
+      onBtnSkip();
+    }else if(e.key==='t'||e.key==='T'||e.key==='Delete'){
+      e.preventDefault();
+      onBtnTabu();
+    }
+  }
+});
+
+})();
+</script>
+</body>
+</html>

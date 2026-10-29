@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <link rel="icon" href="favicon.ico" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaşgarlı Mahmud ve Dîvânu Lugâti't-Türk Rehberi – Dilimizin Zenginlikleri</title>
+  <meta name="description" content="Kaşgarlı Mahmud'un hayatı, Türk dünyası seyahatleri ve 11. yüzyıl başyapıtı Dîvânu Lugâti't-Türk hakkında kapsamlı ansiklopedik rehber." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gold-bright: #F5D061;
+      --gold-mid:    #C9A84C;
+      --gold-dark:   #8C6F2D;
+      --bg-dark:     #0B0D13;
+      --bg-card:     #131722;
+      --text-main:   #EAE5D9;
+      --text-muted:  #A8A296;
+      --parch-bg:    #FDF9EE;
+      --parch-border:#C0A265;
+      --font-display:'Cinzel', serif;
+      --font-serif:  'Playfair Display', serif;
+      --font-body:   'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 60%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0, rgba(255,255,255,0.01) 1px, transparent 0, transparent 20px);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.7;
+      padding-bottom: 60px;
+    }
+
+    /* ── ÜST GEZİNME ÇUBUĞU ── */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(11,13,19,0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(201,168,76,0.3);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--gold-bright);
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .nav-btn {
+      color: var(--gold-bright);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 4px;
+      background: rgba(255,255,255,0.04);
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: var(--gold-mid);
+      color: #120a02;
+    }
+
+    /* ── HERO BANNER ── */
+    .hero-banner {
+      max-width: 1200px;
+      margin: 30px auto 40px;
+      padding: 0 20px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid var(--gold-mid);
+      border-radius: 20px;
+      color: var(--gold-bright);
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: 2.5rem;
+      color: #FFFFFF;
+      margin-bottom: 14px;
+      line-height: 1.25;
+    }
+    .hero-title span { color: var(--gold-bright); }
+    .hero-subtitle {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--text-muted);
+      font-size: 1.15rem;
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* ── ANA İÇERİK IZGARASI ── */
+    .content-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 32px;
+    }
+    @media (max-width: 900px) {
+      .content-container { grid-template-columns: 1fr; }
+    }
+
+    /* Sol Bilgi Kartı (Panodaki Orijinal Parşömen) */
+    .sidebar-parchment {
+      position: sticky;
+      top: 80px;
+      align-self: start;
+    }
+    .parchment-img-wrap {
+      background: #0f1117;
+      border: 3px solid var(--gold-mid);
+      border-radius: 8px;
+      padding: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      text-align: center;
+    }
+    .parchment-img-wrap img {
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+      display: block;
+    }
+    .parchment-caption {
+      margin-top: 10px;
+      font-size: 0.78rem;
+      color: var(--gold-mid);
+      font-weight: 600;
+    }
+
+    /* Sağ Detaylı Ansiklopedik İçerik */
+    .main-article {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+    .info-card {
+      background: var(--bg-card);
+      border: 1px solid rgba(201,168,76,0.22);
+      border-radius: 8px;
+      padding: 26px 30px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    }
+    .info-card h2 {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      color: var(--gold-bright);
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(201,168,76,0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .info-card p {
+      margin-bottom: 14px;
+      color: #DDD7CA;
+      font-size: 0.96rem;
+    }
+    .info-card strong { color: #FFFFFF; }
+
+    /* Alıntı Kutusu */
+    .quote-box {
+      background: rgba(201,168,76,0.08);
+      border-left: 4px solid var(--gold-bright);
+      padding: 14px 20px;
+      border-radius: 0 6px 6px 0;
+      margin: 18px 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--gold-bright);
+      font-size: 1.05rem;
+    }
+    .quote-author {
+      display: block;
+      margin-top: 6px;
+      font-size: 0.82rem;
+      font-style: normal;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    /* 4 Temel Özellik Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+    @media (max-width: 600px) {
+      .features-grid { grid-template-columns: 1fr; }
+    }
+    .feature-item {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .feature-item-title {
+      font-family: var(--font-display);
+      font-size: 0.92rem;
+      font-weight: 800;
+      color: var(--gold-bright);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .feature-item p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    /* Eserin Bölümleri Tablosu */
+    .dlt-stats-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      font-size: 0.88rem;
+    }
+    .dlt-stats-table th, .dlt-stats-table td {
+      padding: 10px 14px;
+      border: 1px solid rgba(201,168,76,0.2);
+      text-align: left;
+    }
+    .dlt-stats-table th {
+      background: rgba(201,168,76,0.15);
+      color: var(--gold-bright);
+      font-family: var(--font-display);
+      font-weight: 800;
+    }
+    .dlt-stats-table tr:nth-child(even) {
+      background: rgba(255,255,255,0.02);
+    }
+
+    /* Aksiyon Çubuğu */
+    .action-cta-box {
+      margin-top: 20px;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .cta-btn-primary {
+      background: linear-gradient(135deg, var(--gold-mid), #916c21);
+      color: #120a02;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 800;
+      padding: 10px 22px;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+    .cta-btn-primary:hover { transform: scale(1.04); }
+    .cta-btn-secondary {
+      background: transparent;
+      color: var(--gold-bright);
+      border: 1px solid var(--gold-mid);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      transition: background 0.2s;
+    }
+    .cta-btn-secondary:hover { background: rgba(201,168,76,0.15); }
+  </style>
+</head>
+<body>
+
+  <!-- ════ ÜST GEZİNME ÇUBUĞU ════ -->
+  <nav class="top-nav">
+    <a href="index.html" class="nav-brand">
+      <img src="assets/proje_logo_clean.png" alt="Proje Logosu" style="height:32px;width:auto;border-radius:50%;box-shadow:0 0 8px rgba(201,168,76,0.4)" />
+      <span>Dilimizin Zenginlikleri</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-btn">← Ana Sayfa</a>
+      <a href="harita.html" class="nav-btn">🗺️ Canlı Harita Panosu</a>
+      <a href="sozluk.html" class="nav-btn">📖 100 Kelimelik Sözlük</a>
+    </div>
+  </nav>
+
+  <!-- ════ HERO BAŞLIK ════ -->
+  <header class="hero-banner">
+    <div class="hero-badge">XI. Yüzyılın Başyapıtı & İlk Türk Ansiklopedisi</div>
+    <h1 class="hero-title">Kaşgarlı Mahmud & <span>Dîvânu Lugâti't-Türk</span></h1>
+    <p class="hero-subtitle">
+      “Türk dilini Araplara öğretmek ve Türkçenin Arapça ile at başı yürüdüğünü kanıtlamak amacıyla kaleme alınmış ilk şaheser.”
+    </p>
+  </header>
+
+  <!-- ════ İÇERİK GÖVDESİ ════ -->
+  <main class="content-container">
+    
+    <!-- Sol Yan Panel: Panodaki Orijinal Parşömen Kartı -->
+    <aside class="sidebar-parchment">
+      <div class="parchment-img-wrap">
+        <img src="assets/dlt_hakkinda_parchment.png" alt="Dîvânu Lugâti't-Türk Hakkında Orijinal Parşömen Görseli" />
+        <div class="parchment-caption">❖ Sergi Panosu Orijinal Parşömeni ❖</div>
+      </div>
+      <div style="margin-top:16px;text-align:center">
+        <a href="harita.html" class="nav-btn" style="display:inline-block;width:100%;padding:10px">
+          🗺️ Pano Haritasında İncele →
+        </a>
+      </div>
+    </aside>
+
+    <!-- Sağ Ana Makale -->
+    <article class="main-article">
+      
+      <!-- 1. Kaşgarlı Mahmud Kimdir? -->
+      <section class="info-card">
+        <h2>👤 Kaşgarlı Mahmud Kimdir?</h2>
+        <p>
+          <strong>Kaşgarlı Mahmud</strong> (tam adıyla <em>Mahmûd bin el-Hüseyin bin Muhammed el-Kâşgarî</em>), 11. yüzyılda (yaklaşık 1008–1105) yaşamış, Karahanlı hanedan soyundan gelen büyük bir Türk bilgini, dilbilimcisi, filolog, etnograf ve haritacıdır.
+        </p>
+        <p>
+          Kaşgar yakınlarındaki Opal kasabasında doğduğu kabul edilir. Asil bir aileden gelmesi sebebiyle devrinin en seçkin medreselerinde İslami ilimler, edebiyat, felsefe ve astronomi eğitimi görmüştür.
+        </p>
+        
+        <div class="quote-box">
+          “Ben Türklerin en açık konuşanı, en duru dilli olanı, en iyi eğitim görmüşü, soyca en köklüsü ve mızrakta en usta olanıyım. Bütün Türk illerini, bozkırlarını ve obalarını adım adım dolaştım; dillerini, şiirlerini ve atasözlerini hafızama nakşettim.”
+          <span class="quote-author">— Kaşgarlı Mahmud (Dîvânu Lugâti't-Türk Mukaddimesi)</span>
+        </div>
+
+        <p>
+          Mahmud, Türk boylarının yaşadığı coğrafyaları gezerek Oğuz, Kıpçak, Karluk, Uygur, Kırgız, Çiğil ve Yağma boylarının dillerini, ağız özelliklerini, geleneklerini ve yaşam tarzlarını yerinde incelemiştir. Topladığı bu benzersiz hazineyi Bağdat'a giderek kitaplaştırmıştır.
+        </p>
+      </section>
+
+      <!-- 2. Dîvânu Lugâti't-Türk Nedir? -->
+      <section class="info-card">
+        <h2>📖 Dîvânu Lugâti't-Türk Eserinin Önemi</h2>
+        <p>
+          <strong>Dîvânu Lugâti't-Türk</strong> (<em>Türk Dillerinin Toplu Sözlüğü / Divanı</em>), 1072–1077 yılları arasında Abbasi Halifesi <strong>el-Muktedî bi-Emrillâh</strong>'a sunulmak üzere Bağdat'ta Arapça olarak kaleme alınmıştır.
+        </p>
+        <p>
+          Eser yalnızca bir sözlük değil; Türk tarihini, coğrafyasını, destanlarını (Alp Er Tunga Sagusu vb.), atasözlerini (savlar), şiirlerini (koşuklar), hekimlik bilgisini ve dünya görüşünü içeren **dünyadaki ilk Türk ansiklopedisidir**.
+        </p>
+
+        <div class="features-grid">
+          <div class="feature-item">
+            <div class="feature-item-title">📜 7.500+ Özgün Kelime</div>
+            <p>11. yüzyıl Türk dünyasının zengin söz varlığı, fiil çekimleri ve boylara göre fonetik varyasyonları.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-title">🗺️ İlk Türk Dünya Haritası</div>
+            <p>Dünya merkezinde Balasagun'un yer aldığı, Türk boylarının yaşadığı coğrafyayı gösteren ilk dairesel harita.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-title">🏹 Türk Boyları & Damgalar</div>
+            <p>Oğuzların 22 boyunun tam listesi, hayvanlarına vurdukları boy damgaları ve sınırları.</p>
+          </div>
+          <div class="feature-item">
+            <div class="feature-item-title">💬 Yüzlerce Sav ve Koşuk</div>
+            <p>Eski Türk edebiyatının sözlü ürünleri, av şiirleri, tabiat tasvirleri ve ağıtları günümüze taşımıştır.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. Eserin Yazılış Amacı ve Felsefesi -->
+      <section class="info-card">
+        <h2>🎯 Yazılış Amacı & Kültürel Misyonu</h2>
+        <p>
+          Kaşgarlı Mahmud, Selçukluların İslam dünyasında siyasi egemenliği sağladığı 11. yüzyılda, Türkçenin Arapça kadar zengin, incelikli ve kudretli bir kültür dili olduğunu bütün dünyaya göstermek istemiştir.
+        </p>
+        
+        <table class="dlt-stats-table">
+          <thead>
+            <tr>
+              <th>Özellik</th>
+              <th>Açıklama</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Yazılış Tarihi</strong></td>
+              <td>1072–1074 (Tamamlanışı: 1077)</td>
+            </tr>
+            <tr>
+              <td><strong>Yazıldığı Yer</strong></td>
+              <td>Bağdat (Abbasi Hilafeti Merkezi)</td>
+            </tr>
+            <tr>
+              <td><strong>Yazı Dili</strong></td>
+              <td>Arapça açıklamalı Hakaniye (Karahanlı) Türkçesi</td>
+            </tr>
+            <tr>
+              <td><strong>Yegâne Nüsha</strong></td>
+              <td>Ali Emîrî Efendi tarafından 1917'de İstanbul Sahaflar Çarşısı'nda bulunmuştur (Millet Kütüphanesi'nde korunmaktadır).</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="action-cta-box">
+          <a href="sozluk.html" class="cta-btn-primary">📖 100 Seçkin Kelimeyi İncele</a>
+          <a href="harita.html" class="cta-btn-secondary">🗺️ Etkileşimli Türk Boyları Haritası</a>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+</body>
+</html>

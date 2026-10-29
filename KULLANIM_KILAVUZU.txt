@@ -1,0 +1,72 @@
+========================================================================
+   DİLİMİZİN ZENGİNLİKLERİ PROJESİ - DÎVÂNU LUGÂTİ'T-TÜRK PLATFORMU
+                     KULLANIM & KURULUM KILAVUZU
+========================================================================
+
+Sayın Kullanıcı / Değerli Öğretmenimiz,
+
+Bu proje; Millî Eğitim Bakanlığı "Dilimizin Zenginlikleri Projesi" 
+kapsamında Kaşgarlı Mahmud ve Türkçenin ilk şaheseri olan Dîvânu Lugâti't-Türk'ü 
+etkileşimli, eğitsel ve görsel bir şölene dönüştürmek amacıyla hazırlanmıştır.
+
+------------------------------------------------------------------------
+1. PROJEYİ ÇALIŞTIRMA (HIZLI BAŞLANGIÇ)
+------------------------------------------------------------------------
+Bu proje tamamen modern Web teknolojileri (HTML5, CSS3, JavaScript) ile 
+geliştirilmiştir. Herhangi bir sunucu veya veritabanı kurulumu gerektirmez.
+
+İki şekilde doğrudan kullanabilirsiniz:
+
+A) ÇİFT TIKLAYARAK DOĞRUDAN ÇALIŞTIRMA (İNTERNETSİZ / ÇEVRİMDIŞI):
+   - Klasör içindeki "index.html" dosyasına çift tıklayarak tarayıcınızda 
+     (Google Chrome, Microsoft Edge vb.) hemen açabilirsiniz.
+   - Sınıfta, akıllı tahtada veya laboratuvarda internetsiz ortamda dahi 
+     sorunsuz çalışır.
+
+B) YEREL SUNUCU İLE ÇALIŞTIRMA (ÖNERİLEN):
+   - Web sunucusu üzerinden çalıştırmak isterseniz klasör dizininde:
+     http://localhost:8080 adresinden tüm sayfalara erişebilirsiniz.
+
+------------------------------------------------------------------------
+2. SAYFALAR VE ÖNE ÇIKAN ÖZELLİKLER
+------------------------------------------------------------------------
+
+1) ANA SAYFA (index.html):
+   - Günün Kadim Kelimesi (#01 bilig vb.) ve güncel TDK karşılığı
+   - DLT'den Günün Hikmetli Sözü (Sav / Atasözü)
+   - "Kadim Türkçeye Ne Kadar Hakimsin?" 20 Soruluk Bilgi Sınavı
+     (Her 5 soruda bir ara karne ve unvan derecesi: Acemi, Çırak, Bilge, Üstat)
+   - Sesli kelime okuma (Web Speech API)
+
+2) CANLI SERGİ PANOSU (harita.html):
+   - Fiziksel sergi panosunun 1:1 orijinal dijital ikizi
+   - Akıllı tahta, masaüstü bilgisayar, tablet ve cep telefonu tam uyumlu
+   - Üst orijinal afiş, bozkurt amblemi ve deri ciltli kitap tasviri
+   - Merkezde yüksek çözünürlüklü Türk Dünyası haritası ve etkileşimli noktalar
+   - Alt kısımda QR kodsuz, büyük puntolu ve net okunaklı 6 Türk boyu kartı
+   - Boy detay penceresi (Kaşgarlı Mahmud'un sözleri ve kelime örnekleri)
+
+3) DÎVÂNU LUGÂTİ'T-TÜRK & KAŞGARLI MAHMUD REHBERİ (divanu.html):
+   - Kaşgarlı Mahmud'un hayatı, Türk dünyası gezileri ve mukaddimesi
+   - Eserin tarihi, bölümleri, sav ve koşuk örnekleri, harita bilgisi
+   - Panodaki orijinal "Dîvânu Lugâti't-Türk Hakkında" parşömeni
+
+4) 100 KELİMELİK KADİM SÖZLÜK (sozluk.html):
+   - 10 farklı tematik kategori (Dil, Devlet, Aile, Savaş, Hayvan vb.)
+   - Canlı arama, köken/bağlam tahlilleri ve sesli telaffuz
+
+5) KADİM KELİMELER TABU OYUNU (tabu.html):
+   - Eski Türkçe kelimenin yanında BÜYÜK HARFLERLE GÜNÜMÜZ TÜRKÇESİ KARŞILIĞI
+   - Süre, pas hakkı, takım/bireysel mod ayarları
+   - Eğlenceli doğru, pas, tabu ve süre sonu ses efektleri
+
+------------------------------------------------------------------------
+3. CİHAZ UYUMLULUĞU
+------------------------------------------------------------------------
+- Akıllı Tahta (1600px+): Geniş pano modu, arka sıralardan dahi net okuma.
+- Masaüstü & Laptop (1200px - 1599px): İdeal sergi ve çalışma alanı.
+- Tablet / iPad (768px - 1199px): 3'lü esnek kart ızgarası.
+- Cep Telefonu (< 768px): 2'li dikey kart dizilimi, yatay kaydırma yapmaz.
+
+Dilimizin Zenginlikleri Projesi'nde ve derslerinizde üstün başarılar dileriz!
+========================================================================

@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <link rel="icon" href="favicon.ico" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dilimizin Zenginlikleri · Türk Dünyasında Dilin İzleri (Dîvânu Lugâti't-Türk)</title>
+  
+  <!-- Google Fonts: Cinzel & Medieval Serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --board-bg: #0b0c10;
+      --board-frame: #181920;
+      --gold-bright: #F5D061;
+      --gold-mid: #C9A84C;
+      --gold-deep: #7D611D;
+      --parch-bg: #F4ECD8;
+      --parch-card: #FAF6EB;
+      --parch-dark: #E2D5B8;
+      --text-dark: #2A1D0E;
+      --text-muted: #5A4B3A;
+      --font-display: 'Cinzel', serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-body: 'Plus Jakarta Sans', sans-serif;
+
+      /* Boy Renkleri (Görseldeki Orijinal Pastel Tonlar) */
+      --c-oguz: #E74C3C;
+      --c-kipc: #E67E22;
+      --c-karl: #27AE60;
+      --c-uygr: #2980B9;
+      --c-krgz: #795548;
+      --c-cigl: #9B59B6;
+      --c-yagm: #F1C40F;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: #07080a;
+      background-image: 
+        radial-gradient(ellipse at 50% 20%, rgba(201,168,76,0.08) 0%, transparent 60%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.01) 0, rgba(255,255,255,0.01) 1px, transparent 0, transparent 20px);
+      color: #E0DACB;
+      font-family: var(--font-body);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 12px 32px 12px;
+      overflow-x: hidden;
+    }
+
+    /* ── ÜST ARAÇ ÇUBUĞU ── */
+    .top-nav-bar {
+      width: 100%;
+      max-width: 98vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 6px 12px;
+      background: rgba(18,20,28,0.85);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 6px;
+      backdrop-filter: blur(8px);
+    }
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(201,168,76,0.15);
+      border: 1px solid var(--gold-mid);
+      color: var(--gold-bright);
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-size: 0.78rem;
+      font-weight: 700;
+      border-radius: 4px;
+      transition: all 0.2s;
+    }
+    .back-btn:hover {
+      background: var(--gold-mid);
+      color: #120a02;
+      transform: translateX(-2px);
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,168,76,0.25);
+      color: var(--gold-bright);
+      font-family: var(--font-display);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .nav-btn:hover {
+      background: var(--gold-mid);
+      color: #120a02;
+    }
+
+    /* ════ ANA SERGİ PANOSU (Görseldeki 1:1 Ahşap Çerçeveli Pano) ════ */
+    .exhibition-board-container {
+      width: 100%;
+      max-width: 98vw;
+      background: #0f1117;
+      border: 6px solid #23180c;
+      outline: 2px solid var(--gold-mid);
+      box-shadow: 
+        0 15px 50px rgba(0,0,0,0.9),
+        0 0 35px rgba(201,168,76,0.18),
+        inset 0 0 40px rgba(0,0,0,0.8);
+      border-radius: 8px;
+      padding: 16px 20px;
+      position: relative;
+    }
+
+    /* Selçuklu Köşe Motifleri */
+    .corner-motif {
+      position: absolute;
+      width: 28px;
+      height: 28px;
+      color: var(--gold-bright);
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    .corner-tl { top: 6px; left: 6px; }
+    .corner-tr { top: 6px; right: 6px; transform: rotate(90deg); }
+    .corner-bl { bottom: 6px; left: 6px; transform: rotate(-90deg); }
+    .corner-br { bottom: 6px; right: 6px; transform: rotate(180deg); }
+
+    /* ── 1. ÜST BAŞLIK BÖLÜMÜ (Tüm Genişliğe Yayılan Saydam Banner) ── */
+    .board-header-row {
+      width: 100%;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .pano-ust-banner-img {
+      width: 100%;
+      height: auto;
+      max-height: 165px;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.8));
+      display: block;
+    }
+
+    /* ── 2. ORTA BÖLÜM (Sol Kart + BÜYÜK HARİTA + Sağ Tablo) ── */
+    .board-middle-grid {
+      display: grid;
+      grid-template-columns: 280px 1fr 280px;
+      gap: 16px;
+      margin-bottom: 22px;
+      align-items: stretch;
+    }
+
+    /* Sol Parşömen Kartı: DLT Hakkında (Orijinal Doğrudan Görsel) */
+    .parchment-info-card-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .dlt-hakkinda-img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 18px rgba(0,0,0,0.75));
+      border-radius: 6px;
+      transition: transform 0.25s ease;
+      cursor: pointer;
+    }
+    .dlt-hakkinda-img:hover {
+      transform: scale(1.02);
+    }
+
+    /* ORTA: ETKİLEŞİMLİ SULUBOYA TÜRK DÜNYASI HARİTASI */
+    .center-map-container {
+      background: #0f1117;
+      border: 3px solid #8C6F3D;
+      border-radius: 8px;
+      padding: 0;
+      box-shadow: 
+        0 8px 30px rgba(0,0,0,0.7),
+        inset 0 0 35px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .poster-map-wrapper {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .poster-map-img {
+      width: 100%;
+      height: 100%;
+      max-height: 440px;
+      object-fit: contain;
+      border-radius: 5px;
+      display: block;
+    }
+    /* ── Harita Üzerindeki Küçük Etkileşimli Noktalar (Hotspots) ── */
+    .map-hotspot {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: transform 0.2s ease;
+    }
+    .map-hotspot:hover, .map-hotspot.active {
+      transform: translate(-50%, -50%) scale(1.4);
+      z-index: 25;
+    }
+    .hotspot-ring {
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 1.5px solid #FFFFFF;
+      box-shadow: 0 0 8px rgba(255,255,255,0.8);
+      animation: pulseHotspot 2.2s infinite ease-out;
+    }
+    .hotspot-core {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1.5px solid #FFFFFF;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.85);
+      position: relative;
+      z-index: 2;
+    }
+    .hotspot-label {
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(14, 16, 22, 0.94);
+      border: 1px solid var(--gold-mid);
+      color: #FFFFFF;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 4px;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.85);
+    }
+    .map-hotspot:hover .hotspot-label, .map-hotspot.active .hotspot-label {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-2px);
+    }
+    @keyframes pulseHotspot {
+      0% { transform: scale(0.9); opacity: 0.9; }
+      70% { transform: scale(2.0); opacity: 0; }
+      100% { transform: scale(2.0); opacity: 0; }
+    }
+    .svg-map-frame {
+      width: 100%;
+      height: auto;
+      max-height: 380px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.25));
+    }
+
+    /* Boy SVG Etkileşimleri */
+    .map-realm-path {
+      cursor: pointer;
+      transition: all 0.25s ease;
+      stroke-linejoin: round;
+      stroke-linecap: round;
+      filter: drop-shadow(0 3px 5px rgba(0,0,0,0.35));
+    }
+    .map-realm-path:hover, .map-realm-path.active {
+      filter: drop-shadow(0 0 10px rgba(255,255,255,0.9)) drop-shadow(0 0 4px #000);
+      stroke: #FFFFFF !important;
+      stroke-width: 3.5px !important;
+      opacity: 1 !important;
+    }
+    .map-realm-label {
+      pointer-events: none;
+      font-family: var(--font-display);
+      font-weight: 900;
+      fill: #FFFFFF;
+      text-anchor: middle;
+      letter-spacing: 0.05em;
+      transition: transform 0.2s;
+    }
+
+    .map-bottom-title-pill {
+      margin-top: 8px;
+      background: linear-gradient(135deg, #F8F2E2, #E2D1A6);
+      border: 1.5px solid #7D5D23;
+      border-radius: 4px;
+      padding: 5px 22px;
+      font-family: var(--font-display);
+      font-size: 0.84rem;
+      font-weight: 900;
+      color: #241406;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+      letter-spacing: 0.05em;
+    }
+
+    /* Sağ Parşömen Kartı: Boylar ve Bölgeleri Tablosu */
+    .parchment-table-card {
+      background: var(--parch-bg);
+      background-image: linear-gradient(180deg, #F9F4E8 0%, #EFE4CA 100%);
+      border: 2px solid #BC9F67;
+      border-radius: 6px;
+      padding: 16px 14px;
+      box-shadow: 
+        3px 6px 20px rgba(0,0,0,0.6),
+        inset 0 0 20px rgba(180,140,70,0.18);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .tribe-table-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 4px;
+    }
+    .tribe-row-item {
+      display: grid;
+      grid-template-columns: 80px 1fr;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+    }
+    .tribe-row-item:hover, .tribe-row-item.active {
+      background: rgba(201,168,76,0.22);
+      transform: translateX(3px);
+    }
+    .tribe-pill-badge {
+      color: #FFFFFF;
+      font-family: var(--font-display);
+      font-size: 0.72rem;
+      font-weight: 900;
+      text-align: center;
+      padding: 3px 6px;
+      border-radius: 3px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.25);
+    }
+    .tribe-region-desc {
+      font-size: 0.74rem;
+      color: #2B1E10;
+      line-height: 1.3;
+      font-weight: 600;
+    }
+
+    .table-quote-footer {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed #C0A675;
+      text-align: center;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: #6C1914;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* ── 3. ALT BOY KARTLARI (Orijinal Sergideki 1:1 Kart Görselleri) ── */
+    .board-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1100px) {
+      .board-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    @media (max-width: 650px) {
+      .board-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .real-poster-card-item {
+      background: transparent;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.25s ease, filter 0.25s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .real-poster-card-img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      border-radius: 6px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.65);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+    }
+    .real-poster-card-item:hover .real-poster-card-img,
+    .real-poster-card-item.active .real-poster-card-img {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.85), 0 0 20px rgba(201,168,76,0.5);
+      filter: brightness(1.08);
+    }
+    .card-footer-sketch {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed #C0A675;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .card-footer-sketch img {
+      max-width: 100%;
+      height: auto;
+      max-height: 40px;
+      filter: sepia(0.3);
+    }
+    .board-footer-ribbon {
+      text-align: center;
+      padding-top: 14px;
+      border-top: 2px solid #2B1D0E;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .pano-alt-slogan-img {
+      width: 100%;
+      max-width: 960px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8));
+    }
+
+    /* ── 5. ETKİLEŞİMLİ DETAY MODALI (Kart veya Haritaya Tıklanınca Açılır) ── */
+    .tribe-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,7,12,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .tribe-modal-overlay.open {
+      display: flex;
+      animation: modalFade 0.25s ease-out;
+    }
+    @keyframes modalFade { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+    .tribe-modal-card {
+      width: 100%;
+      max-width: 580px;
+      background: #141720;
+      border: 3px solid var(--gold-mid);
+      border-radius: 8px;
+      box-shadow: 0 15px 50px rgba(0,0,0,0.9), 0 0 30px rgba(201,168,76,0.3);
+      overflow: hidden;
+      position: relative;
+    }
+    .modal-head {
+      padding: 14px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--gold-mid);
+    }
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #FFFFFF;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .modal-close-btn {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #FFFFFF;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal-close-btn:hover { background: #E74C3C; border-color: #E74C3C; }
+
+    .modal-body {
+      padding: 20px;
+      font-size: 0.9rem;
+      line-height: 1.65;
+      color: #E2DDD2;
+    }
+    .modal-badge-row {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .modal-quote {
+      background: rgba(201,168,76,0.1);
+      border-left: 3px solid var(--gold-bright);
+      padding: 10px 14px;
+      border-radius: 0 4px 4px 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--gold-bright);
+      margin: 14px 0;
+      font-size: 0.95rem;
+    }
+    .modal-words-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .modal-word-btn {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid var(--gold-mid);
+      color: var(--gold-bright);
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.2s;
+    }
+    .modal-word-btn:hover { background: var(--gold-mid); color: #120a02; }
+
+    .modal-action-bar {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(201,168,76,0.25);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .modal-sozluk-btn {
+      background: linear-gradient(135deg, var(--gold-mid), #967026);
+      color: #120a02;
+      text-decoration: none;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 0.82rem;
+      padding: 8px 18px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+    .modal-sozluk-btn:hover { transform: scale(1.05); }
+
+    /* ════ CİHAZ UYUMLULUĞU (Akıllı Tahta, Masaüstü, Tablet, Mobil) ════ */
+    
+    /* 1. Akıllı Tahta & 4K / Büyük Ekranlar (1600px+) */
+    @media (min-width: 1600px) {
+      .exhibition-board-container {
+        max-width: 1750px;
+        padding: 24px 32px;
+      }
+      .pano-ust-banner-img {
+        max-height: 190px;
+      }
+      .poster-map-img {
+        max-height: 520px;
+      }
+      .board-middle-grid {
+        grid-template-columns: 320px 1fr 320px;
+        gap: 22px;
+      }
+    }
+
+    /* 2. Standart Dizüstü & Masaüstü (1200px – 1599px) */
+    @media (min-width: 1200px) and (max-width: 1599px) {
+      .board-cards-grid {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 12px;
+      }
+    }
+
+    /* 3. Tablet & Yatay Tablet (768px – 1199px) */
+    @media (max-width: 1199px) {
+      .board-middle-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+      .parchment-info-card-wrap {
+        max-width: 440px;
+        margin: 0 auto;
+      }
+      .parchment-table-card {
+        max-width: 550px;
+        margin: 0 auto;
+        width: 100%;
+      }
+      .board-cards-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .poster-map-img {
+        max-height: 380px;
+      }
+    }
+
+    /* 4. Telefon & Küçük Mobil (767px ve altı) */
+    @media (max-width: 767px) {
+      body {
+        padding: 8px 6px 24px 6px;
+      }
+      .exhibition-board-container {
+        padding: 10px 8px;
+        border-width: 4px;
+      }
+      .top-nav-bar {
+        padding: 6px 10px;
+        font-size: 0.75rem;
+      }
+      .board-header-row {
+        margin-bottom: 12px;
+      }
+      .pano-ust-banner-img {
+        max-height: 90px;
+      }
+      .board-middle-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+      }
+      .poster-map-img {
+        max-height: 260px;
+      }
+      .board-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .pano-alt-slogan-img {
+        max-width: 100%;
+      }
+      .tribe-modal-card {
+        max-width: 95vw;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════ ÜST KONTROL ÇUBUĞU ════ -->
+  <nav class="top-nav-bar" aria-label="Gezinme">
+    <div style="display:flex;align-items:center;gap:12px">
+      <a href="index.html" class="back-btn">&#8592; Ana Sayfa</a>
+      <img src="assets/proje_logo_clean.png" alt="Proje Logosu" style="height:32px;width:auto;border-radius:50%;box-shadow:0 0 8px rgba(201,168,76,0.4)" />
+    </div>
+    <div style="font-family:var(--font-display);font-size:0.85rem;font-weight:800;color:var(--gold-bright);letter-spacing:0.06em">
+      ❖ DÎVÂNU LUGÂTİ'T-TÜRK · SERGİ PANOSU & ETKİLEŞİMLİ HARİTA ❖
+    </div>
+    <div class="nav-actions">
+      <a href="sozluk.html" class="nav-btn">📖 Sözlük</a>
+    </div>
+  </nav>
+
+  <!-- ════ ANA SERGİ PANOSU (Görselin 1:1 Dijital İkizi) ════ -->
+  <main class="exhibition-board-container" id="board">
+    
+    <!-- Selçuklu Köşe Motifleri -->
+    <div class="corner-motif corner-tl">❖</div>
+    <div class="corner-motif corner-tr">❖</div>
+    <div class="corner-motif corner-bl">❖</div>
+    <div class="corner-motif corner-br">❖</div>
+
+    <!-- ── 1. ÜST BÖLÜM (Doğrudan Yüklediğiniz Orijinal Üst Kısım Fotoğrafı) ── -->
+    <header class="board-header-row">
+      <img src="assets/pano_ust_banner.png" alt="Dilimizin Zenginlikleri Dîvânu Lugâti't-Türk Sergi Panosu Üst Afişi" class="pano-ust-banner-img" />
+    </header>
+
+    <!-- ── 2. ORTA BÖLÜM (Sol Kart + Harita + Sağ Tablo) ── -->
+    <section class="board-middle-grid">
+      
+      <!-- Sol: Dîvânu Lugâti't-Türk Hakkında (Birebir Yüklediğiniz Orijinal Görsel) -->
+      <div class="parchment-info-card-wrap">
+        <a href="divanu.html" title="Kaşgarlı Mahmud ve Eseri Hakkında Kapsamlı Bilgi Almak İçin Tıklayın">
+          <img src="assets/dlt_hakkinda_parchment.png" alt="Dîvânu Lugâti't-Türk Hakkında Bilgi Kartı" class="dlt-hakkinda-img" />
+        </a>
+      </div>
+
+      <!-- ORTA: DOĞRUDAN BÜYÜK BOYUTTA KIRPILMIŞ TÜRK BOYLARI HARİTASI & KÜÇÜK NOKTALAR -->
+      <div class="center-map-container">
+        <div class="poster-map-wrapper">
+          <img src="assets/turk_boylari_haritasi.png" alt="11. yüzyılda Türk boyları ve yaşadıkları bölgeler haritası" class="poster-map-img" />
+          
+          <!-- Etkileşimli Küçük Noktalar -->
+          <div class="map-hotspot" id="spot-kipc" style="left: 33%; top: 18%;" 
+               onmouseover="highlightBoy('kipc')" onmouseout="resetHighlight()" onclick="openBoyModal('kipc')">
+            <div class="hotspot-ring" style="border-color:var(--c-kipc)"></div>
+            <div class="hotspot-core" style="background:var(--c-kipc)"></div>
+            <span class="hotspot-label">Kıpçaklar</span>
+          </div>
+
+          <div class="map-hotspot" id="spot-oguz" style="left: 35%; top: 40%;" 
+               onmouseover="highlightBoy('oguz')" onmouseout="resetHighlight()" onclick="openBoyModal('oguz')">
+            <div class="hotspot-ring" style="border-color:var(--c-oguz)"></div>
+            <div class="hotspot-core" style="background:var(--c-oguz)"></div>
+            <span class="hotspot-label">Oğuzlar</span>
+          </div>
+
+          <div class="map-hotspot" id="spot-karl" style="left: 52%; top: 29%;" 
+               onmouseover="highlightBoy('karl')" onmouseout="resetHighlight()" onclick="openBoyModal('karl')">
+            <div class="hotspot-ring" style="border-color:var(--c-karl)"></div>
+            <div class="hotspot-core" style="background:var(--c-karl)"></div>
+            <span class="hotspot-label">Karluklar</span>
+          </div>
+
+          <div class="map-hotspot" id="spot-cigl" style="left: 45%; top: 52%;" 
+               onmouseover="highlightBoy('cigl')" onmouseout="resetHighlight()" onclick="openBoyModal('cigl')">
+            <div class="hotspot-ring" style="border-color:var(--c-cigl)"></div>
+            <div class="hotspot-core" style="background:var(--c-cigl)"></div>
+            <span class="hotspot-label">Çiğiller</span>
+          </div>
+
+          <div class="map-hotspot" id="spot-yagm" style="left: 62%; top: 52%;" 
+               onmouseover="highlightBoy('yagm')" onmouseout="resetHighlight()" onclick="openBoyModal('yagm')">
+            <div class="hotspot-ring" style="border-color:var(--c-yagm)"></div>
+            <div class="hotspot-core" style="background:var(--c-yagm)"></div>
+            <span class="hotspot-label">Yağmalar</span>
+          </div>
+
+          <div class="map-hotspot" id="spot-uygr" style="left: 79%; top: 41%;" 
+               onmouseover="highlightBoy('uygr')" onmouseout="resetHighlight()" onclick="openBoyModal('uygr')">
+            <div class="hotspot-ring" style="border-color:var(--c-uygr)"></div>
+            <div class="hotspot-core" style="background:var(--c-uygr)"></div>
+            <span class="hotspot-label">Uygurlar</span>
+          </div>
+
+          <div class="map-hotspot" id="spot-krgz" style="left: 80%; top: 20%;" 
+               onmouseover="highlightBoy('krgz')" onmouseout="resetHighlight()" onclick="openBoyModal('krgz')">
+            <div class="hotspot-ring" style="border-color:var(--c-krgz)"></div>
+            <div class="hotspot-core" style="background:var(--c-krgz)"></div>
+            <span class="hotspot-label">Kırgızlar</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sağ: Türk Boyları ve Yaşadıkları Bölgeler Tablosu -->
+      <div class="parchment-table-card">
+        <div>
+          <h2 class="card-parch-title">Türk Boyları ve Yaşadıkları Bölgeler</h2>
+          <div class="tribe-table-rows">
+            <div class="tribe-row-item" id="row-oguz" onmouseover="highlightBoy('oguz')" onmouseout="resetHighlight()" onclick="openBoyModal('oguz')">
+              <span class="tribe-pill-badge" style="background:var(--c-oguz)">Oğuzlar</span>
+              <span class="tribe-region-desc">Orta Asya'nın batı kesimleri, Anadolu ve çevresi</span>
+            </div>
+            <div class="tribe-row-item" id="row-kipc" onmouseover="highlightBoy('kipc')" onmouseout="resetHighlight()" onclick="openBoyModal('kipc')">
+              <span class="tribe-pill-badge" style="background:var(--c-kipc)">Kıpçaklar</span>
+              <span class="tribe-region-desc">Kuzey Karadeniz bozkırları</span>
+            </div>
+            <div class="tribe-row-item" id="row-karl" onmouseover="highlightBoy('karl')" onmouseout="resetHighlight()" onclick="openBoyModal('karl')">
+              <span class="tribe-pill-badge" style="background:var(--c-karl)">Karluklar</span>
+              <span class="tribe-region-desc">Doğu Türkistan ve çevresi</span>
+            </div>
+            <div class="tribe-row-item" id="row-uygr" onmouseover="highlightBoy('uygr')" onmouseout="resetHighlight()" onclick="openBoyModal('uygr')">
+              <span class="tribe-pill-badge" style="background:var(--c-uygr)">Uygurlar</span>
+              <span class="tribe-region-desc">Doğu Türkistan</span>
+            </div>
+            <div class="tribe-row-item" id="row-krgz" onmouseover="highlightBoy('krgz')" onmouseout="resetHighlight()" onclick="openBoyModal('krgz')">
+              <span class="tribe-pill-badge" style="background:var(--c-krgz)">Kırgızlar</span>
+              <span class="tribe-region-desc">Kırgızistan ve çevresi</span>
+            </div>
+            <div class="tribe-row-item" id="row-cigl" onmouseover="highlightBoy('cigl')" onmouseout="resetHighlight()" onclick="openBoyModal('cigl')">
+              <span class="tribe-pill-badge" style="background:var(--c-cigl)">Çiğiller</span>
+              <span class="tribe-region-desc">Seyhun ve Ceyhun arasındaki bölge</span>
+            </div>
+            <div class="tribe-row-item" id="row-yagm" onmouseover="highlightBoy('yagm')" onmouseout="resetHighlight()" onclick="openBoyModal('yagm')">
+              <span class="tribe-pill-badge" style="background:var(--c-yagm);color:#120a02">Yağmalar</span>
+              <span class="tribe-region-desc">Hazar'ın kuzeyi ve çevresi</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-quote-footer">
+          “Her boy bir kelime, her kelime bir kültürdür.”
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 3. ALT BOY KARTLARI (Orijinal Panodaki Birebir Gerçek Kartlar) ── -->
+    <section class="board-cards-grid">
+      
+      <!-- 1. Oğuzlar -->
+      <div class="real-poster-card-item" id="card-oguz" 
+           onmouseover="highlightBoy('oguz')" onmouseout="resetHighlight()" onclick="openBoyModal('oguz')">
+        <img src="assets/card_oguz_real.png" alt="Oğuzlar Kartı" class="real-poster-card-img" />
+      </div>
+
+      <!-- 2. Kıpçaklar -->
+      <div class="real-poster-card-item" id="card-kipc" 
+           onmouseover="highlightBoy('kipc')" onmouseout="resetHighlight()" onclick="openBoyModal('kipc')">
+        <img src="assets/card_kipc_real.png" alt="Kıpçaklar Kartı" class="real-poster-card-img" />
+      </div>
+
+      <!-- 3. Karluklar -->
+      <div class="real-poster-card-item" id="card-karl" 
+           onmouseover="highlightBoy('karl')" onmouseout="resetHighlight()" onclick="openBoyModal('karl')">
+        <img src="assets/card_karl_real.png" alt="Karluklar Kartı" class="real-poster-card-img" />
+      </div>
+
+      <!-- 4. Uygurlar -->
+      <div class="real-poster-card-item" id="card-uygr" 
+           onmouseover="highlightBoy('uygr')" onmouseout="resetHighlight()" onclick="openBoyModal('uygr')">
+        <img src="assets/card_uygr_real.png" alt="Uygurlar Kartı" class="real-poster-card-img" />
+      </div>
+
+      <!-- 5. Kırgızlar -->
+      <div class="real-poster-card-item" id="card-krgz" 
+           onmouseover="highlightBoy('krgz')" onmouseout="resetHighlight()" onclick="openBoyModal('krgz')">
+        <img src="assets/card_krgz_real.png" alt="Kırgızlar Kartı" class="real-poster-card-img" />
+      </div>
+
+      <!-- 6. Yağmalar -->
+      <div class="real-poster-card-item" id="card-yagm" 
+           onmouseover="highlightBoy('yagm')" onmouseout="resetHighlight()" onclick="openBoyModal('yagm')">
+        <img src="assets/card_yagm_real.png" alt="Yağmalar Kartı" class="real-poster-card-img" />
+      </div>
+    </section>
+
+    <!-- ── 4. ALT ŞERİT & SLOGAN (Orijinal Afiş) ── -->
+    <footer class="board-footer-ribbon">
+      <img src="assets/pano_alt_slogan.png" alt="Dildeki her kelime, geçmişten geleceğe uzanan bir köprüdür." class="pano-alt-slogan-img" />
+    </footer>
+  </main>
+
+  <!-- ════ ETKİLEŞİMLİ DETAY MODALI ════ -->
+  <div class="tribe-modal-overlay" id="tribe-modal" onclick="if(event.target===this)closeBoyModal()">
+    <div class="tribe-modal-card">
+      <div class="modal-head" id="modal-header">
+        <div class="modal-title">
+          <span id="modal-icon" style="display:inline-flex;align-items:center;"></span>
+          <span id="modal-name">Oğuzlar</span>
+        </div>
+        <button class="modal-close-btn" onclick="closeBoyModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-badge-row">
+          <span id="modal-region-badge" style="background:var(--gold-mid);color:#120a02;font-weight:bold;font-size:0.75rem;padding:3px 10px;border-radius:4px"></span>
+        </div>
+        <p id="modal-desc" style="margin-bottom:10px"></p>
+        
+        <div class="modal-quote" id="modal-quote"></div>
+
+        <div style="font-family:var(--font-display);font-size:0.8rem;font-weight:800;color:var(--gold-bright);margin-top:14px">
+          🔊 DLT'deki Temsilî Kelimeleri (Sesli Dinle):
+        </div>
+        <div class="modal-words-chips" id="modal-words"></div>
+
+        <div class="modal-action-bar">
+          <span style="font-size:0.75rem;color:#888">Dîvânu Lugâti't-Türk Ansiklopedisi</span>
+          <a href="sozluk.html" class="modal-sozluk-btn">📖 Sözlükte Kelimeleri İncele &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      'use strict';
+
+      // 7 Boy Veri Tabanı (Görselle 1:1)
+      const TRIBE_DETAILS = {
+        oguz: {
+          name: 'Oğuzlar', color: '#E74C3C', iconImg: 'assets/icon_oguz.png',
+          region: 'Orta Asya\'nın batı kesimleri, Anadolu ve çevresi',
+          desc: 'Selçuklu ve Osmanlı cihan devletlerini kuran Oğuzlar, Türk dünyasının siyasi ve edebi omurgasını oluşturmuştur. DLT\'de 22 boyunun tam damgaları listelenmiştir.',
+          quote: '“Oğuzlar yirmi iki bölüktür, her bölüğün bir damgası vardır.” — Kaşgarlı Mahmud',
+          words: ['ata', 'ana', 'alp', 'at', 'yurt', 'er', 'kut']
+        },
+        kipc: {
+          name: 'Kıpçaklar', color: '#E67E22', iconImg: 'assets/icon_kipc.png',
+          region: 'Kuzey Karadeniz bozkırları (Deşt-i Kıpçak)',
+          desc: 'Deşt-i Kıpçak\'ın uçsuz bucaksız bozkırlarında yaşamış savaşçı süvari boyudur. DLT\'de dillerinin duruluğu ve atçılık kültürü övgüyle anlatılır.',
+          quote: '“Kıpçak dili en hafif ve akıcı dillerdendir.” — Kaşgarlı Mahmud',
+          words: ['er', 'at', 'savaş', 'yurt', 'ok', 'yay', 'boz']
+        },
+        karl: {
+          name: 'Karluklar', color: '#27AE60', iconImg: 'assets/icon_karl.png',
+          region: 'Doğu Türkistan ve çevresi (Yedisu)',
+          desc: 'İlk Müslüman Türk devleti olan Karahanlıların kurucu ana boyudur. DLT\'nin yazıldığı devrin kültür ve dil çekirdeğini teşkil ederler.',
+          quote: '“Karluklar göçebe Türklerin en soylu ve cömertlerindendir.” — Kaşgarlı Mahmud',
+          words: ['su', 'yol', 'gün', 'kişi', 'dağ', 'taş', 'bilge']
+        },
+        uygr: {
+          name: 'Uygurlar', color: '#2980B9', iconImg: 'assets/icon_uygr.png',
+          region: 'Doğu Türkistan (Tarım Havzası, Turfan, Hotan)',
+          desc: 'Yerleşik kent kültürü, matbaa, kütüphaneler ve zengin alfabeleriyle Türk medeniyetinin yazı ve hukuk temellerini atmış usta boydur.',
+          quote: '“Uygur dili gayet duru bir Türkçedir; kendilerine mahsus yazıları vardır.” — Kaşgarlı Mahmud',
+          words: ['kitap', 'il', 'yol', 'tam', 'bitig', 'su']
+        },
+        krgz: {
+          name: 'Kırgızlar', color: '#795548', iconImg: 'assets/icon_krgz.png',
+          region: 'Kırgızistan, Tanrı Dağları & Yenisey çevresi',
+          desc: 'Yüksek dağ zirvelerinde özgürce yaşamış avcı ve savaşçı Türk boyudur. Dünyanın en uzun destanı Manas Destanı\'nı dillerinde yaşatmışlardır.',
+          quote: '“Kırgızlar dillerinde en az yabancı unsur barındıran kadim boylardandır.” — Kaşgarlı Mahmud',
+          words: ['dağ', 'gök', 'at', 'güç', 'er', 'yay']
+        },
+        cigl: {
+          name: 'Çiğiller', color: '#9B59B6', iconImg: 'assets/icon_cigl.png',
+          region: 'Seyhun ve Ceyhun arasındaki bölge (Maveraünnehir)',
+          desc: 'İpek Yolu\'nun kalbi olan Maveraünnehir\'de şehirli ve tüccar kimlikleriyle bilinen, Karahanlı ordusunun en seçkin zümresi olan boydur.',
+          quote: '“Çiğiller savaşta atik, ticarette adildir.” — Kaşgarlı Mahmud',
+          words: ['satıg', 'alım', 'su', 'yol', 'er', 'başmak']
+        },
+        yagm: {
+          name: 'Yağmalar', color: '#F1C40F', iconImg: 'assets/icon_yagm.png',
+          region: 'Hazar\'ın kuzeyi ve çevresi (Kaşgar)',
+          desc: 'Büyük Kaşgar bölgesine adını veren, güçlü süvarilere sahip köklü Türk boyudur. Kaşgarlı Mahmud\'un en yakından tanıdığı dilleri konuşurlar.',
+          quote: '“Yağma ve Karluklar Kaşgarlı Mahmud\'un en yakından bildiği dilleri konuşur.” — Kaşgarlı Mahmud',
+          words: ['ok', 'yay', 'at', 'er', 'kımız', 'aş']
+        }
+      };
+
+      // Vurgulama İşlevleri (Harita - Hotspot - Kart - Tablo Eşzamanlı)
+      window.highlightBoy = function(key) {
+        // Harita Hotspot
+        document.querySelectorAll('.map-hotspot').forEach(s => s.classList.remove('active'));
+        const spot = document.getElementById('spot-' + key);
+        if (spot) spot.classList.add('active');
+
+        // Harita Path
+        document.querySelectorAll('.map-realm-path').forEach(p => p.classList.remove('active'));
+        const path = document.getElementById('path-' + key);
+        if (path) path.classList.add('active');
+
+        // Alt Kart
+        document.querySelectorAll('.poster-tribe-card').forEach(c => c.classList.remove('active'));
+        const card = document.getElementById('card-' + key);
+        if (card) card.classList.add('active');
+
+        // Sağ Tablo Satırı
+        document.querySelectorAll('.tribe-row-item').forEach(r => r.classList.remove('active'));
+        const row = document.getElementById('row-' + key);
+        if (row) row.classList.add('active');
+      };
+
+      window.resetHighlight = function() {
+        document.querySelectorAll('.map-hotspot').forEach(s => s.classList.remove('active'));
+        document.querySelectorAll('.map-realm-path').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('.poster-tribe-card').forEach(c => c.classList.remove('active'));
+        document.querySelectorAll('.tribe-row-item').forEach(r => r.classList.remove('active'));
+      };
+
+      // Modal Açma / Kapatma
+      window.openBoyModal = function(key) {
+        const data = TRIBE_DETAILS[key];
+        if (!data) return;
+
+        const modal = document.getElementById('tribe-modal');
+        const header = document.getElementById('modal-header');
+        header.style.backgroundColor = data.color;
+
+        const iconSpan = document.getElementById('modal-icon');
+        if (data.iconImg) {
+          iconSpan.innerHTML = `<img src="${data.iconImg}" style="height:28px; width:auto; filter:brightness(0) invert(1); margin-right:8px;" alt="${data.name}">`;
+        } else {
+          iconSpan.textContent = '';
+        }
+        document.getElementById('modal-name').textContent = data.name;
+        document.getElementById('modal-region-badge').textContent = '📍 ' + data.region;
+        document.getElementById('modal-desc').textContent = data.desc;
+        document.getElementById('modal-quote').textContent = data.quote;
+
+        const wordsWrap = document.getElementById('modal-words');
+        wordsWrap.innerHTML = data.words.map(w => 
+          `<button class="modal-word-btn" onclick="speakWord('${w}')">🔊 ${w}</button>`
+        ).join('');
+
+        modal.classList.add('open');
+      };
+
+      window.closeBoyModal = function() {
+        document.getElementById('tribe-modal').classList.remove('open');
+      };
+
+      // Web Speech API ile Kelime Okuma
+      window.speakWord = function(word) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(word);
+        utterance.lang = 'tr-TR';
+        utterance.rate = 0.85;
+        window.speechSynthesis.speak(utterance);
+      };
+
+      // ESC Tuşu ile Modal Kapatma
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeBoyModal();
+      });
+
+    })();
+  </script>
+</body>
+</html>

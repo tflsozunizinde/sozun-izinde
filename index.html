@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <link rel="icon" href="favicon.ico" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dilimizin Zenginlikleri – Türkçenin Sonsuz Dünyası</title>
+  <meta name="description" content="Dilimizin Zenginlikleri projesi: Türkçemizin tarihsel derinliğini, kelime hazinesini ve kültürel mirasını keşfedin. Öğrenci etkinlikleri, çalışmalar ve dil yolculuğu." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ════ NAV ════ -->
+  <header class="site-header" id="site-header">
+    <nav class="navbar" role="navigation" aria-label="Ana Navigasyon">
+      <a href="#hero" class="brand" id="brand-logo" style="display:flex;align-items:center;gap:10px">
+        <img src="assets/proje_logo_clean.png" alt="Dilimizin Zenginlikleri Proje Logosu" style="height:36px;width:auto;border-radius:50%;box-shadow:0 0 10px rgba(201,168,76,0.3)" />
+        <span class="brand-text">Dilimizin Zenginlikleri</span>
+      </a>
+      <button class="hamburger" id="hamburger-btn" aria-label="Menüyü aç" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" id="nav-links" role="menubar">
+        <li role="none"><a href="#hero" class="nav-link active" role="menuitem" id="nav-anasayfa">Ana Sayfa</a></li>
+        <li role="none"><a href="divanu.html" class="nav-link" role="menuitem" id="nav-divanu">📜 Dîvânu Lugâti't-Türk</a></li>
+        <li role="none"><a href="sozluk.html" class="nav-link" role="menuitem" id="nav-sozluk">📖 Sözlük</a></li>
+        <li role="none"><a href="harita.html" class="nav-map-btn" id="nav-harita-btn">🗺 <span>Canlı Harita</span></a></li>
+        <li class="nav-dropdown" role="none" id="nav-etkinlikler-wrap">
+          <button class="nav-link nav-dropdown-btn" id="nav-etkinlikler" aria-haspopup="true" aria-expanded="false">
+            🎯 Etkinlikler Menüsü <span class="nav-chevron">▾</span>
+          </button>
+          <ul class="nav-dropdown-menu" id="nav-dropdown-menu" role="menu">
+            <li role="none"><a href="harita.html" class="nav-dropdown-item nav-dropdown-item--page" role="menuitem">🗺️ Türk Dünyası Canlı Haritası</a></li>
+            <li role="none"><a href="divanu.html" class="nav-dropdown-item nav-dropdown-item--page" role="menuitem">📜 Dîvânu Lugâti't-Türk & Kaşgarlı Mahmud Rehberi</a></li>
+            <li role="none"><a href="sozluk.html" class="nav-dropdown-item nav-dropdown-item--page" role="menuitem">📖 100 Kelimelik Kadim Sözlük</a></li>
+            <li role="none"><a href="#mini-quiz" class="nav-dropdown-item" role="menuitem" id="nd-quiz">🏹 20 Soruluk Bilgi Sınavı</a></li>
+            <li role="none"><a href="tabu.html" class="nav-dropdown-item" role="menuitem">🃏 Kadim Kelimeler Tabu Turnuvası</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- ════ HERO ════ -->
+    <section class="hero" id="hero" aria-label="Karşılama Bölümü">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <div class="hero-badge" id="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Türk Dili Eğitim Projesi
+        </div>
+        <h1 class="hero-title" id="hero-title">
+          Dilimizin<br />
+          <em>Zenginlikleri</em>
+        </h1>
+        <p class="hero-subtitle" id="hero-subtitle">
+          Türkçemizin tarihin derinliklerinden süzülen sözleri,<br />
+          anlamları ve kültürel mirasıyla buluşuyoruz.
+        </p>
+        <div class="hero-actions">
+          <a href="#mini-quiz" class="btn btn-primary" id="hero-btn-quiz">🏹 20 Soruluk Sınav</a>
+          <a href="divanu.html" class="btn btn-ghost" id="hero-btn-divanu">📜 Dîvânu Lugâti't-Türk</a>
+          <a href="#gunun-kelimesi" class="btn btn-ghost" id="hero-btn-gunun-kelimesi">✨ Günün Kelimesi</a>
+          <a href="sozluk.html" class="btn btn-ghost" id="hero-btn-sozluk">📖 100 Kelimelik Sözlük</a>
+        </div>
+
+      </div>
+      <div class="hero-scroll-hint" id="hero-scroll-hint" aria-hidden="true">
+        <span>Aşağı Kaydır</span>
+        <div class="scroll-arrow"></div>
+      </div>
+      <div class="hero-ornament ornament-left" aria-hidden="true">٭</div>
+      <div class="hero-ornament ornament-right" aria-hidden="true">٭</div>
+    </section>
+
+    <!-- ════ GÜNÜN KELİMESİ WIDGET ════ -->
+    <section class="section gunun-kelimesi-section" id="gunun-kelimesi" aria-label="Günün Kadim Kelimesi">
+      <div class="container">
+        <div class="daily-word-card">
+          <div class="daily-word-badge">
+            <span>✨</span> GÜNÜN KADİM KELİMESİ <span>·</span> <span id="daily-date">Bugün</span>
+          </div>
+          <div class="daily-word-header">
+            <div>
+              <div class="daily-word-title-wrap">
+                <h3 class="daily-word-title" id="daily-word-k">...</h3>
+                <button type="button" class="daily-speak-btn" id="daily-speak-btn" title="Sesli Dinle">🔊</button>
+                <span class="daily-word-no" id="daily-word-no">#00</span>
+              </div>
+              <div class="daily-word-cat" id="daily-word-cat">Kategori</div>
+            </div>
+            <div class="daily-actions">
+              <button type="button" class="daily-btn-refresh" id="daily-btn-random" title="Farklı bir kadim kelime getir">🎲 Başka Kelime</button>
+              <a href="sozluk.html" class="daily-btn-link">Sözlükte İncele →</a>
+            </div>
+          </div>
+          <div class="daily-word-body">
+            <div class="daily-field">
+              <span class="daily-field-label">XI. YY. DÎVÂNU LUGÂTİ'T-TÜRK ANLAMI</span>
+              <p class="daily-dlt-meaning" id="daily-word-d">“...”</p>
+            </div>
+            <div class="daily-field">
+              <span class="daily-field-label">GÜNCEL TDK ANLAMI & KÖKEN</span>
+              <p class="daily-tdk-meaning" id="daily-word-tdk">...</p>
+              <p class="daily-koken" id="daily-word-koken">...</p>
+            </div>
+          </div>
+          <!-- Günün Atasözü (Sav) Kutucuğu -->
+          <div class="daily-sav-box" id="daily-sav-box" style="margin-top:1.2rem;padding:0.9rem 1.2rem;background:rgba(201,168,76,0.08);border-left:3px solid var(--color-gold);border-radius:0 6px 6px 0;display:flex;align-items:center;gap:12px">
+            <span style="font-size:1.6rem;flex-shrink:0">📜</span>
+            <div>
+              <div style="font-family:var(--font-display);font-size:0.75rem;font-weight:800;color:var(--color-gold-light);letter-spacing:0.06em;text-transform:uppercase">
+                Dîvânu Lugâti't-Türk'ten Günün Hikmetli Sözü (Sav)
+              </div>
+              <div id="daily-sav-text" style="font-family:var(--font-serif);font-style:italic;font-size:0.95rem;color:#FAF4E4;margin-top:2px">
+                “Kanı kanla yumazlar, kanı su ile yurlar.” (Kötülüğe kötülükle değil, iyilikle karşılık verilir.)
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ════ HIZLI TÜRKÇE KELİME TESTİ (20 SORULUK BÜYÜK QUIZ) ════ -->
+    <section class="section mini-quiz-section" id="mini-quiz" aria-label="Kadim Kelimeler Bilgi Testi">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Kendini Sına</span>
+          <h2 class="section-title">Kadim Türkçeye Ne Kadar Hakimsin?</h2>
+          <p class="section-sub" style="color:var(--color-text-muted);max-width:640px;margin:0.5rem auto 0;text-align:center">Dîvânu Lugâti't-Türk'ün 100 kadim sözcüğünden hazırlanan <strong>20 soruluk</strong> kapsamlı test. Her 5 soruda bir seviye değerlendirmesi (Acemi, Çırak, Bilge, Üstat/Uzman) ve A-B-C-D not baremi ile dil ustalığını ölç!</p>
+          <div class="title-ornament" aria-hidden="true">⬥ ⬥ ⬥</div>
+        </div>
+
+        <div class="quiz-container" id="quiz-container">
+          <!-- Quiz Start View -->
+          <div class="quiz-view" id="quiz-start-view">
+            <div class="quiz-icon">🏹</div>
+            <h3 class="quiz-view-title">20 Soruluk Kadim Türkçe Sınavı</h3>
+            <p class="quiz-view-desc">XI. yüzyıl Karahanlı Türkçesi, DLT söz varlığı, anlamlar ve deyimlerden oluşan 20 soru. Her 5 soruda bir ara karne ve unvan derecesi alacaksın!</p>
+            <div class="quiz-stages-preview">
+              <span class="stage-pill">🌱 1-5: Acemi Yolcu</span>
+              <span class="stage-pill">📜 6-10: Dil Çırağı</span>
+              <span class="stage-pill">⚔️ 11-15: Bozkır Bilgesi</span>
+              <span class="stage-pill">👑 16-20: Türk Dili Uzmanı</span>
+            </div>
+            <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem">
+              <button class="btn btn-primary" id="btn-start-quiz">🎯 20 Soruluk Sınavı Başlat</button>
+              <a href="sozluk.html" class="btn btn-ghost">📖 Önce Sözlüğe Göz At</a>
+            </div>
+          </div>
+
+          <!-- Quiz Question View -->
+          <div class="quiz-view" id="quiz-play-view" style="display:none">
+            <div class="quiz-progress-bar">
+              <div class="quiz-progress-fill" id="quiz-progress-fill" style="width:5%"></div>
+            </div>
+            <div class="quiz-meta-row">
+              <span class="quiz-q-indicator" id="quiz-q-indicator">Soru 1 / 20</span>
+              <span class="quiz-tier-badge" id="quiz-current-tier-badge">Aşama 1: Acemi</span>
+              <span class="quiz-score-indicator" id="quiz-score-indicator">Doğru: 0 / 20</span>
+            </div>
+            <h3 class="quiz-question-text" id="quiz-question-text">Soru yükleniyor...</h3>
+            <div class="quiz-options-grid" id="quiz-options-grid"></div>
+            <div class="quiz-feedback-box" id="quiz-feedback-box" style="display:none">
+              <div id="quiz-feedback-text"></div>
+              <button class="btn btn-primary" id="quiz-btn-next" style="margin-top:0.8rem;padding:0.5rem 1.4rem;font-size:0.88rem">Sonraki Soru →</button>
+            </div>
+          </div>
+
+          <!-- Quiz Mid-Stage Checkpoint (Her 5 Soruda Bir Ara Değerlendirme) -->
+          <div class="quiz-view" id="quiz-stage-view" style="display:none">
+            <div class="quiz-icon" id="quiz-stage-icon">🎖️</div>
+            <div class="quiz-grade-circle" id="quiz-stage-grade">A</div>
+            <h3 class="quiz-view-title" id="quiz-stage-title">5. Soru Tamamlandı!</h3>
+            <p class="quiz-view-desc" id="quiz-stage-desc">Seviye değerlendirmesi yükleniyor...</p>
+            <div class="stage-stats-card" id="stage-stats-card">
+              <!-- JS ile dinamik dolacak -->
+            </div>
+            <button class="btn btn-primary" id="btn-continue-quiz" style="margin-top:1.5rem">Sonraki Aşamaya Devam Et →</button>
+          </div>
+
+          <!-- Quiz Result View (Final 20 Soru) -->
+          <div class="quiz-view" id="quiz-result-view" style="display:none">
+            <div class="quiz-icon" id="quiz-result-icon">👑</div>
+            <div class="quiz-grade-circle final-grade" id="quiz-final-grade">A+</div>
+            <h3 class="quiz-view-title" id="quiz-result-title">Sınav Tamamlandı!</h3>
+            <p class="quiz-view-desc" id="quiz-result-desc">Genel değerlendirmeniz hesaplanıyor...</p>
+            <div class="quiz-result-score-box">
+              <div class="quiz-big-score" id="quiz-big-score">20 / 20</div>
+              <div style="font-size:0.85rem;color:var(--color-gold-light);font-weight:700" id="quiz-final-rank">UZMAN BİLGE</div>
+            </div>
+            <div id="quiz-stage-breakdown" style="margin-top:1.5rem;text-align:left"></div>
+            <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-top:1.5rem">
+              <button class="btn btn-primary" id="btn-restart-quiz">🔄 Yeniden Sınava Gir (20 Soru)</button>
+              <a href="tabu.html" class="btn btn-ghost">🃏 Tabu Oyunuyla Pekiştir</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════ STATS ════ -->
+    <section class="stats-strip" id="stats-strip" aria-label="Proje İstatistikleri">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-item" id="stat-etkinlik">
+            <span class="stat-number">6</span>
+            <span class="stat-label">Etkinlik Alanı</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item" id="stat-tip">
+            <span class="stat-number">3</span>
+            <span class="stat-label">Etkinlik Türü</span>
+          </div>
+          <div class="stat-divider" aria-hidden="true"></div>
+          <div class="stat-item" id="stat-yil">
+            <span class="stat-number">2026</span>
+            <span class="stat-label">Proje Yılı</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="site-footer" id="site-footer">
+    <div class="footer-inner container">
+      <div class="footer-brand">
+        <span class="brand-icon">✦</span>
+        <span class="brand-text">Dilimizin Zenginlikleri</span>
+        <p class="footer-tagline">Türkçemizin sonsuz zenginliğini keşfediyoruz.</p>
+      </div>
+      <nav class="footer-nav" aria-label="Alt Navigasyon">
+        <a href="#hero" id="footer-anasayfa">Ana Sayfa</a>
+        <a href="#gunun-kelimesi">Günün Kelimesi</a>
+        <a href="#mini-quiz">20 Soruluk Sınav</a>
+        <a href="sozluk.html" id="footer-sozluk">Sözlük</a>
+        <a href="tabu.html" id="footer-tabu">Tabu Oyunu</a>
+        <a href="harita.html">Canlı Harita</a>
+      </nav>
+      <p class="footer-copy">© 2025–2026 Dilimizin Zenginlikleri Projesi. Tüm hakları saklıdır.</p>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal" id="modal-box">
+      <button class="modal-close" id="modal-close" aria-label="Kapat">✕</button>
+      <div class="modal-body" id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="words.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
