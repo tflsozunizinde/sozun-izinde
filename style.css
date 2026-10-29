@@ -1099,14 +1099,26 @@ ul { list-style: none; }
     gap: 0;
     background: rgba(13,13,20,0.98);
     backdrop-filter: blur(20px);
-    padding: 0.8rem 0 1.5rem;
+    padding: 0;
     max-height: 0;
     overflow: hidden;
-    transition: max-height var(--transition-slow);
-    border-bottom: 2px solid var(--color-gold);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.8);
+    opacity: 0;
+    visibility: hidden;
+    border-bottom: none;
+    box-shadow: none;
+    pointer-events: none;
+    transition: max-height var(--transition-slow), opacity var(--transition), visibility var(--transition), padding var(--transition);
   }
-  .nav-links.open { max-height: 520px; overflow-y: auto; }
+  .nav-links.open {
+    max-height: 520px;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    padding: 0.8rem 0 1.5rem;
+    border-bottom: 2px solid var(--color-gold);
+    box-shadow: 0 16px 36px rgba(0,0,0,0.85);
+    overflow-y: auto;
+  }
   .nav-link {
     display: block;
     padding: 0.75rem 1.4rem;
