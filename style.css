@@ -1188,7 +1188,16 @@ ul { list-style: none; }
 
 @media (max-width: 480px) {
   body { overflow-x: hidden; }
-  .hero-title { font-size: 2rem; }
+  .hero-title { font-size: 1.85rem; line-height: 1.2; }
+  .hero-subtitle { font-size: 0.88rem; line-height: 1.45; }
+  .section-title { font-size: 1.6rem !important; }
+  .section-sub { font-size: 0.85rem !important; line-height: 1.5 !important; }
+  .daily-word-title { font-size: 1.8rem !important; }
+  .daily-dlt-meaning { font-size: 1.05rem !important; }
+  .daily-tdk-meaning { font-size: 0.88rem !important; }
+  .quiz-view-title { font-size: 1.45rem !important; }
+  .quiz-view-desc { font-size: 0.86rem !important; }
+  .quiz-question-text { font-size: 1.15rem !important; line-height: 1.4 !important; }
   .stats-grid { gap: 0.8rem; }
   .stat-item { padding: 0 0.8rem; }
   .daily-sav-box { padding: 1rem 0.8rem; }
