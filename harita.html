@@ -649,38 +649,69 @@
     /* 4. Telefon & Küçük Mobil (767px ve altı) */
     @media (max-width: 767px) {
       body {
-        padding: 8px 6px 24px 6px;
+        padding: 6px 4px 60px 4px;
+        overflow-x: hidden;
       }
       .exhibition-board-container {
-        padding: 10px 8px;
-        border-width: 4px;
+        padding: 8px 6px;
+        border-width: 3px;
+        margin: 0 auto 20px;
+        max-width: 100%;
+        box-sizing: border-box;
       }
       .top-nav-bar {
-        padding: 6px 10px;
-        font-size: 0.75rem;
+        padding: 6px 8px;
+        font-size: 0.72rem;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 6px;
       }
       .board-header-row {
-        margin-bottom: 12px;
+        margin-bottom: 10px;
       }
       .pano-ust-banner-img {
-        max-height: 90px;
+        max-height: 80px;
       }
       .board-middle-grid {
         grid-template-columns: 1fr;
-        gap: 14px;
+        gap: 12px;
       }
       .poster-map-img {
-        max-height: 260px;
+        max-height: 240px;
       }
       .board-cards-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
+        margin-bottom: 14px;
+      }
+      .real-poster-card-item {
+        width: 100%;
+      }
+      .real-poster-card-img {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 4px;
+      }
+      .board-footer-ribbon {
+        flex-direction: column;
+        padding-top: 10px;
+        width: 100%;
       }
       .pano-alt-slogan-img {
+        width: 100%;
         max-width: 100%;
+        height: auto;
       }
       .tribe-modal-card {
         max-width: 95vw;
+        max-height: 88vh;
+        overflow-y: auto;
+      }
+      #bgm-toggle-btn {
+        bottom: 12px;
+        right: 12px;
+        padding: 6px 10px;
+        font-size: 0.75rem;
       }
     }
   </style>

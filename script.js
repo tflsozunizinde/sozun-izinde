@@ -72,18 +72,21 @@
   /* ── HAMBURGER ── */
   const hamburger = document.getElementById('hamburger-btn');
   const navMenu   = document.getElementById('nav-links');
-  hamburger.addEventListener('click', () => {
-    const open = navMenu.classList.toggle('open');
-    hamburger.classList.toggle('open', open);
-    hamburger.setAttribute('aria-expanded', open.toString());
-  });
-  navMenu.querySelectorAll('.nav-link').forEach(a => {
-    a.addEventListener('click', () => {
-      navMenu.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
+  if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open.toString());
     });
-  });
+    // Sadece gerçek sayfa/çapa linklerine tıklandığında menüyü kapat, dropdown butonuna tıklandığında menüyü kapatma!
+    navMenu.querySelectorAll('.nav-link:not(.nav-dropdown-btn), .nav-map-btn, .nav-dropdown-item').forEach(a => {
+      a.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
 
   /* ── COUNTER ANIMATION ── */
   function animateCounters() {
