@@ -49,6 +49,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
     }
     .nav-brand {
       display: flex;
@@ -64,7 +66,8 @@
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
     .nav-btn {
       color: var(--gold-bright);
@@ -76,6 +79,7 @@
       border-radius: 4px;
       background: rgba(255,255,255,0.04);
       transition: all 0.2s;
+      white-space: nowrap;
     }
     .nav-btn:hover {
       background: var(--gold-mid);
@@ -247,10 +251,18 @@
     }
 
     /* Eserin Bölümleri Tablosu */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-top: 14px;
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 6px;
+    }
     .dlt-stats-table {
       width: 100%;
+      min-width: 420px;
       border-collapse: collapse;
-      margin-top: 14px;
       font-size: 0.88rem;
     }
     .dlt-stats-table th, .dlt-stats-table td {
@@ -286,6 +298,7 @@
       font-size: 0.88rem;
       box-shadow: 0 4px 14px rgba(0,0,0,0.5);
       transition: transform 0.2s;
+      text-align: center;
     }
     .cta-btn-primary:hover { transform: scale(1.04); }
     .cta-btn-secondary {
@@ -299,8 +312,83 @@
       border-radius: 4px;
       font-size: 0.88rem;
       transition: background 0.2s;
+      text-align: center;
     }
     .cta-btn-secondary:hover { background: rgba(201,168,76,0.15); }
+
+    /* ── MOBİL UYUMLULUK (RESPONSIVE) ── */
+    @media (max-width: 768px) {
+      .top-nav {
+        padding: 10px 16px;
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .nav-brand {
+        justify-content: center;
+      }
+      .nav-links {
+        justify-content: center;
+        width: 100%;
+      }
+      .nav-btn {
+        flex: 1;
+        text-align: center;
+        padding: 6px 8px;
+        font-size: 0.76rem;
+      }
+      .hero-banner {
+        margin: 20px auto 28px;
+        padding: 0 16px;
+      }
+      .hero-title {
+        font-size: 1.85rem;
+      }
+      .hero-subtitle {
+        font-size: 0.98rem;
+      }
+      .content-container {
+        padding: 0 14px;
+        gap: 20px;
+      }
+      .sidebar-parchment {
+        position: static;
+        width: 100%;
+        max-width: 420px;
+        margin: 0 auto 10px;
+      }
+      .info-card {
+        padding: 18px 16px;
+      }
+      .info-card h2 {
+        font-size: 1.22rem;
+      }
+      .quote-box {
+        padding: 12px 14px;
+        font-size: 0.95rem;
+      }
+      .action-cta-box {
+        flex-direction: column;
+      }
+      .cta-btn-primary, .cta-btn-secondary {
+        width: 100%;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 1.6rem;
+      }
+      .hero-badge {
+        font-size: 0.7rem;
+        padding: 3px 10px;
+      }
+      .nav-links {
+        flex-direction: column;
+        gap: 6px;
+      }
+      .nav-btn {
+        width: 100%;
+      }
+    }
   </style>
 </head>
 <body>
@@ -408,6 +496,7 @@
           Kaşgarlı Mahmud, Selçukluların İslam dünyasında siyasi egemenliği sağladığı 11. yüzyılda, Türkçenin Arapça kadar zengin, incelikli ve kudretli bir kültür dili olduğunu bütün dünyaya göstermek istemiştir.
         </p>
         
+        <div class="table-responsive">
         <table class="dlt-stats-table">
           <thead>
             <tr>
@@ -434,6 +523,7 @@
             </tr>
           </tbody>
         </table>
+        </div>
 
         <div class="action-cta-box">
           <a href="sozluk.html" class="cta-btn-primary">📖 100 Seçkin Kelimeyi İncele</a>
@@ -460,5 +550,6 @@
     </div>
   </footer>
 
+  <script src="music-player.js"></script>
 </body>
 </html>
