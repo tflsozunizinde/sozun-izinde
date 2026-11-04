@@ -1,46 +1,50 @@
 /* ─────────────────────────────────────────────
-   music-player.js – Fon Müziği Sistemi (Er Turan / DLT)
-   Akıllı Tahta, Mobil ve Baştan Başlatma Uyumlu
+   music-player.js – Fon Müziği & Tüm Siteyi İndirme
 ─────────────────────────────────────────────── */
 (function () {
   'use strict';
 
   const AUDIO_SRC = 'assets/er-turan.mp3';
 
-  // Ses nesnesi oluştur
   const bgAudio = new Audio(AUDIO_SRC);
   bgAudio.loop = true;
-  bgAudio.volume = 0.35; // Dengeli ses seviyesi
+  bgAudio.volume = 0.35;
 
   document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('bgm-container')) return;
 
-    // Kapsayıcı (Sol alt köşe)
     const container = document.createElement('div');
     container.id = 'bgm-container';
 
-    // Ana Oynat/Durdur Butonu
+    // 1. Müzik Oynat / Durdur
     const playBtn = document.createElement('button');
     playBtn.id = 'bgm-toggle-btn';
     playBtn.setAttribute('aria-label', 'Müziği Aç / Kapat');
-    playBtn.title = 'Er Turan - Fon Müziği (Çalmak için dokunun)';
+    playBtn.title = 'Er Turan - Fon Müziği';
     playBtn.innerHTML = `
       <span class="bgm-icon">🎵</span>
       <span class="bgm-text">Müzik Çal</span>
       <span class="bgm-waves"><span></span><span></span><span></span></span>
     `;
 
-    // Baştan Başlat Butonu (⏮️)
+    // 2. Baştan Başlat Butonu (⏮️)
     const restartBtn = document.createElement('button');
     restartBtn.id = 'bgm-restart-btn';
     restartBtn.setAttribute('aria-label', 'Müziği Baştan Başlat');
     restartBtn.title = 'Müziği en baştan başlat';
     restartBtn.innerHTML = `⏮️`;
 
+    // 3. TÜM SİTEYİ İNDİR (ZIP) Butonu (💾)
+    const downloadBtn = document.createElement('button');
+    downloadBtn.id = 'bgm-download-btn';
+    downloadBtn.setAttribute('aria-label', 'Tüm Siteyi Çevrimdışı İndir (ZIP)');
+    downloadBtn.title = 'Tüm siteyi, haritayı ve oyunları internetsiz/akıllı tahtada kullanmak için indir';
+    downloadBtn.innerHTML = `💾 <span class="download-text">Tüm Projeyi İndir</span>`;
+
     container.appendChild(playBtn);
     container.appendChild(restartBtn);
+    container.appendChild(downloadBtn);
 
-    // Stil Tanımları
     const style = document.createElement('style');
     style.textContent = `
       #bgm-container {
@@ -53,7 +57,7 @@
         gap: 6px;
         user-select: none;
       }
-      #bgm-toggle-btn {
+      #bgm-toggle-btn, #bgm-download-btn {
         display: flex;
         align-items: center;
         gap: 8px;
@@ -88,7 +92,7 @@
         transition: all 0.25s ease;
         touch-action: manipulation;
       }
-      #bgm-toggle-btn:hover, #bgm-restart-btn:hover {
+      #bgm-toggle-btn:hover, #bgm-restart-btn:hover, #bgm-download-btn:hover {
         transform: translateY(-2px) scale(1.04);
         box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7), 0 0 18px rgba(201, 168, 76, 0.6);
         border-color: #ffd700;
@@ -98,22 +102,13 @@
         border-color: #55e6a5;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 16px rgba(85, 230, 165, 0.4);
       }
-      #bgm-toggle-btn .bgm-icon {
-        font-size: 1.05rem;
-        line-height: 1;
-      }
-      #bgm-toggle-btn.playing .bgm-icon {
-        animation: bgm-pulse 1.6s infinite ease-in-out;
-      }
       .bgm-waves {
         display: none;
         align-items: center;
         gap: 2px;
         height: 12px;
       }
-      #bgm-toggle-btn.playing .bgm-waves {
-        display: inline-flex;
-      }
+      #bgm-toggle-btn.playing .bgm-waves { display: inline-flex; }
       .bgm-waves span {
         display: block;
         width: 3px;
@@ -124,69 +119,39 @@
       }
       .bgm-waves span:nth-child(2) { animation-delay: 0.2s; height: 70%; }
       .bgm-waves span:nth-child(3) { animation-delay: 0.4s; height: 85%; }
-      @keyframes bgm-equalizer {
-        0% { height: 20%; }
-        100% { height: 100%; }
-      }
-      @keyframes bgm-pulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.2) rotate(8deg); }
-      }
+      @keyframes bgm-equalizer { 0% { height: 20%; } 100% { height: 100%; } }
 
-      /* 📱 Telefon / Küçük Ekranlar */
+      /* Mobil */
       @media (max-width: 768px) {
-        #bgm-container {
-          bottom: 14px;
-          left: 14px;
-          gap: 5px;
-        }
-        #bgm-toggle-btn {
-          padding: 8px 12px;
-          font-size: 0.76rem;
-        }
-        #bgm-restart-btn {
-          width: 32px;
-          height: 32px;
-          font-size: 0.75rem;
-        }
+        #bgm-container { bottom: 12px; left: 12px; gap: 4px; }
+        #bgm-toggle-btn, #bgm-download-btn { padding: 7px 11px; font-size: 0.74rem; }
+        #bgm-restart-btn { width: 32px; height: 32px; font-size: 0.75rem; }
+        .download-text { display: none; }
       }
-
-      /* 📺 Akıllı Tahta (Geniş Ekran) Modu */
+      /* Akıllı Tahta */
       @media (min-width: 1400px) {
-        #bgm-toggle-btn {
-          padding: 12px 20px;
-          font-size: 1rem;
-        }
-        #bgm-restart-btn {
-          width: 44px;
-          height: 44px;
-          font-size: 1.1rem;
-        }
+        #bgm-toggle-btn, #bgm-download-btn { padding: 11px 18px; font-size: 0.95rem; }
+        #bgm-restart-btn { width: 42px; height: 42px; font-size: 1.05rem; }
       }
     `;
     document.head.appendChild(style);
     document.body.appendChild(container);
 
-    // Oynat / Durdur Tıklama
+    // Müzik Çal/Durdur
     playBtn.addEventListener('click', () => {
       if (bgAudio.paused) {
         bgAudio.play().then(() => {
           playBtn.classList.add('playing');
           playBtn.querySelector('.bgm-text').textContent = 'Er Turan (Çalıyor)';
-          playBtn.title = 'Müziği Durdur';
-        }).catch(err => {
-          console.warn('Oynatma engellendi:', err);
-          alert('Müzik dosyası henüz assets/ klasöründe bulunamadı. Lütfen "er-turan.mp3" dosyasını kontrol edin.');
-        });
+        }).catch(() => {});
       } else {
         bgAudio.pause();
         playBtn.classList.remove('playing');
         playBtn.querySelector('.bgm-text').textContent = 'Müzik Çal';
-        playBtn.title = 'Er Turan - Fon Müziği';
       }
     });
 
-    // Baştan Başlat Tıklama (⏮️)
+    // Başa Sar
     restartBtn.addEventListener('click', () => {
       bgAudio.currentTime = 0;
       if (bgAudio.paused) {
@@ -197,24 +162,15 @@
       }
     });
 
-    // Sayfa geçişlerinde çalmaya devam etme kontrolü
-    window.addEventListener('beforeunload', () => {
-      sessionStorage.setItem('bgm_currentTime', bgAudio.currentTime);
-      sessionStorage.setItem('bgm_isPlaying', (!bgAudio.paused).toString());
+    // 💾 TÜM SİTEYİ İNDİR (ZIP)
+    downloadBtn.addEventListener('click', () => {
+      // GitHub repo'sundan tüm projeyi (HTML, Resimler, Sesler, JS) otomatik zip olarak çeker
+      const repoUrl = 'https://github.com/soner-sozun-izinde/sozun-izinde/archive/refs/heads/main.zip';
+      
+      const ok = confirm('Dilimizin Zenginlikleri projesinin tüm dosyalarını (çevrimdışı ve akıllı tahta kullanımı için) ZIP olarak indirmek istiyor musunuz?');
+      if (ok) {
+        window.location.href = repoUrl;
+      }
     });
-
-    const wasPlaying = sessionStorage.getItem('bgm_isPlaying') === 'true';
-    const savedTime = parseFloat(sessionStorage.getItem('bgm_currentTime') || '0');
-    if (wasPlaying) {
-      bgAudio.currentTime = savedTime;
-      const resumeHandler = () => {
-        bgAudio.play().then(() => {
-          playBtn.classList.add('playing');
-          playBtn.querySelector('.bgm-text').textContent = 'Er Turan (Çalıyor)';
-        }).catch(() => {});
-        document.removeEventListener('click', resumeHandler);
-      };
-      document.addEventListener('click', resumeHandler);
-    }
   });
 })();
