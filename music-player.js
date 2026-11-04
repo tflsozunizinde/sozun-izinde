@@ -1,5 +1,6 @@
 /* ─────────────────────────────────────────────
-   music-player.js – Fon Müziği Sistemi (Er Turan)
+   music-player.js – Fon Müziği Sistemi (Er Turan / DLT)
+   Akıllı Tahta, Mobil ve Baştan Başlatma Uyumlu
 ─────────────────────────────────────────────── */
 (function () {
   'use strict';
@@ -11,30 +12,48 @@
   bgAudio.loop = true;
   bgAudio.volume = 0.35; // Dengeli ses seviyesi
 
-  // Sayfa yüklendiğinde buton ekle
   document.addEventListener('DOMContentLoaded', () => {
-    // Varsa eskiyi temizle
-    if (document.getElementById('bgm-toggle-btn')) return;
+    if (document.getElementById('bgm-container')) return;
 
-    // Buton öğesi
-    const btn = document.createElement('button');
-    btn.id = 'bgm-toggle-btn';
-    btn.setAttribute('aria-label', 'Müziği Aç / Kapat');
-    btn.title = 'Er Turan - Fon Müziği (Çalmak için tıklayın)';
-    btn.innerHTML = `
+    // Kapsayıcı (Sol alt köşe)
+    const container = document.createElement('div');
+    container.id = 'bgm-container';
+
+    // Ana Oynat/Durdur Butonu
+    const playBtn = document.createElement('button');
+    playBtn.id = 'bgm-toggle-btn';
+    playBtn.setAttribute('aria-label', 'Müziği Aç / Kapat');
+    playBtn.title = 'Er Turan - Fon Müziği (Çalmak için dokunun)';
+    playBtn.innerHTML = `
       <span class="bgm-icon">🎵</span>
       <span class="bgm-text">Müzik Çal</span>
       <span class="bgm-waves"><span></span><span></span><span></span></span>
     `;
 
-    // Stil ekle - SOL ALT KÖŞE (Netlify rozetiyle çakışmaz, telefonda tam oturur)
+    // Baştan Başlat Butonu (⏮️)
+    const restartBtn = document.createElement('button');
+    restartBtn.id = 'bgm-restart-btn';
+    restartBtn.setAttribute('aria-label', 'Müziği Baştan Başlat');
+    restartBtn.title = 'Müziği en baştan başlat';
+    restartBtn.innerHTML = `⏮️`;
+
+    container.appendChild(playBtn);
+    container.appendChild(restartBtn);
+
+    // Stil Tanımları
     const style = document.createElement('style');
     style.textContent = `
-      #bgm-toggle-btn {
+      #bgm-container {
         position: fixed;
         bottom: 22px;
         left: 22px;
         z-index: 999999;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        user-select: none;
+      }
+      #bgm-toggle-btn {
         display: flex;
         align-items: center;
         gap: 8px;
@@ -51,10 +70,26 @@
         backdrop-filter: blur(8px);
         -webkit-backdrop-filter: blur(8px);
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        user-select: none;
+        touch-action: manipulation;
       }
-      #bgm-toggle-btn:hover {
-        transform: translateY(-2px) scale(1.03);
+      #bgm-restart-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        background: linear-gradient(135deg, rgba(20, 16, 10, 0.94) 0%, rgba(35, 26, 15, 0.96) 100%);
+        border: 1.5px solid #c9a84c;
+        color: #e8d8b0;
+        border-radius: 50%;
+        font-size: 0.85rem;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        transition: all 0.25s ease;
+        touch-action: manipulation;
+      }
+      #bgm-toggle-btn:hover, #bgm-restart-btn:hover {
+        transform: translateY(-2px) scale(1.04);
         box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7), 0 0 18px rgba(201, 168, 76, 0.6);
         border-color: #ffd700;
         color: #fff;
@@ -66,7 +101,6 @@
       #bgm-toggle-btn .bgm-icon {
         font-size: 1.05rem;
         line-height: 1;
-        transition: transform 0.3s ease;
       }
       #bgm-toggle-btn.playing .bgm-icon {
         animation: bgm-pulse 1.6s infinite ease-in-out;
@@ -99,47 +133,67 @@
         50% { transform: scale(1.2) rotate(8deg); }
       }
 
-      /* 📱 Telefon ve Tablet Ekranları İçin İdeal Boyut */
+      /* 📱 Telefon / Küçük Ekranlar */
       @media (max-width: 768px) {
-        #bgm-toggle-btn {
+        #bgm-container {
           bottom: 14px;
           left: 14px;
+          gap: 5px;
+        }
+        #bgm-toggle-btn {
           padding: 8px 12px;
           font-size: 0.76rem;
-          gap: 6px;
         }
-        #bgm-toggle-btn .bgm-icon {
-          font-size: 0.95rem;
+        #bgm-restart-btn {
+          width: 32px;
+          height: 32px;
+          font-size: 0.75rem;
         }
       }
-      @media (max-width: 480px) {
+
+      /* 📺 Akıllı Tahta (Geniş Ekran) Modu */
+      @media (min-width: 1400px) {
         #bgm-toggle-btn {
-          bottom: 10px;
-          left: 10px;
-          padding: 7px 11px;
-          font-size: 0.72rem;
+          padding: 12px 20px;
+          font-size: 1rem;
+        }
+        #bgm-restart-btn {
+          width: 44px;
+          height: 44px;
+          font-size: 1.1rem;
         }
       }
     `;
     document.head.appendChild(style);
-    document.body.appendChild(btn);
+    document.body.appendChild(container);
 
-    // Tıklama olayı
-    btn.addEventListener('click', () => {
+    // Oynat / Durdur Tıklama
+    playBtn.addEventListener('click', () => {
       if (bgAudio.paused) {
         bgAudio.play().then(() => {
-          btn.classList.add('playing');
-          btn.querySelector('.bgm-text').textContent = 'Er Turan (Çalıyor)';
-          btn.title = 'Müziği Durdur';
+          playBtn.classList.add('playing');
+          playBtn.querySelector('.bgm-text').textContent = 'Er Turan (Çalıyor)';
+          playBtn.title = 'Müziği Durdur';
         }).catch(err => {
-          console.warn('Otomatik oynatma engellendi veya dosya bulunamadı:', err);
-          alert('Müzik dosyası henüz assets/ klasöründe bulunamadı. Lütfen "er-turan.mp3" dosyasını eklediğinizden emin olun.');
+          console.warn('Oynatma engellendi:', err);
+          alert('Müzik dosyası henüz assets/ klasöründe bulunamadı. Lütfen "er-turan.mp3" dosyasını kontrol edin.');
         });
       } else {
         bgAudio.pause();
-        btn.classList.remove('playing');
-        btn.querySelector('.bgm-text').textContent = 'Müziği Çal';
-        btn.title = 'Er Turan - Fon Müziği';
+        playBtn.classList.remove('playing');
+        playBtn.querySelector('.bgm-text').textContent = 'Müzik Çal';
+        playBtn.title = 'Er Turan - Fon Müziği';
+      }
+    });
+
+    // Baştan Başlat Tıklama (⏮️)
+    restartBtn.addEventListener('click', () => {
+      bgAudio.currentTime = 0;
+      if (bgAudio.paused) {
+        bgAudio.play().then(() => {
+          playBtn.classList.add('playing');
+          playBtn.querySelector('.bgm-text').textContent = 'Er Turan (Çalıyor)';
+        }).catch(() => {});
       }
     });
 
@@ -155,8 +209,8 @@
       bgAudio.currentTime = savedTime;
       const resumeHandler = () => {
         bgAudio.play().then(() => {
-          btn.classList.add('playing');
-          btn.querySelector('.bgm-text').textContent = 'Er Turan (Çalıyor)';
+          playBtn.classList.add('playing');
+          playBtn.querySelector('.bgm-text').textContent = 'Er Turan (Çalıyor)';
         }).catch(() => {});
         document.removeEventListener('click', resumeHandler);
       };
