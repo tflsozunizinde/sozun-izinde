@@ -1,0 +1,5 @@
+create_serrated_polygons.py
+generate_words.py
+.gemini/
+__pycache__/
+*.pyc
