@@ -16,7 +16,7 @@
     const container = document.createElement('div');
     container.id = 'bgm-container';
 
-    // 1. Müzik Çal / Durdur Butonu
+    // 1. Müzik Çal / Durdur
     const playBtn = document.createElement('button');
     playBtn.id = 'bgm-toggle-btn';
     playBtn.setAttribute('aria-label', 'Müziği Aç / Kapat');
@@ -112,10 +112,4 @@
       .bgm-waves span:nth-child(2) { animation-delay: 0.2s; height: 70%; }
       .bgm-waves span:nth-child(3) { animation-delay: 0.4s; height: 85%; }
       @keyframes bgm-equalizer { 0% { height: 20%; } 100% { height: 100%; } }
-      @keyframes bgm-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2) rotate(8deg); } }
-
-      /* Mobil Uyumluluk */
-      @media (max-width: 768px) {
-        #bgm-container { bottom: 12px; left: 12px; gap: 4px; }
-        #bgm-toggle-btn { padding: 7px 11px; font-size: 0.74rem; }
-        #bg
+      @keyframes bgm-pulse { 0%, 100% { transform: scale(1); } 50
