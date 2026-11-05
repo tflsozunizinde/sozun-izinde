@@ -1,320 +1,324 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kadim Sözlük | Dîvânu Lugâti't-Türk</title>
-  <link rel="icon" href="favicon.ico">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kadim Kelimeler Sözlüğü – Dîvânu Lugâti't-Türk | Dilimizin Zenginlikleri</title>
+  <link rel="icon" href="favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
   <style>
-    :root {
-      --color-gold: #c9a84c;
-      --color-gold-light: #e8d8b0;
-      --color-bg-dark: #0f0c08;
-      --color-surface: rgba(26, 20, 13, 0.85);
-      --border-gold: rgba(201, 168, 76, 0.25);
-    }
-    body {
-      background-color: var(--color-bg-dark);
-      color: #f0e6d2;
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      margin: 0;
-      padding-bottom: 60px;
-    }
-    .header-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 2rem;
-      background: rgba(15, 12, 8, 0.95);
-      border-bottom: 1px solid var(--border-gold);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      backdrop-filter: blur(10px);
-    }
-    .brand-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      text-decoration: none;
-      color: var(--color-gold);
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      font-size: 1.15rem;
-      transition: all 0.3s ease;
-    }
-    .brand-link:hover {
-      color: #ffd700;
-      transform: scale(1.02);
-    }
-    .nav-btn-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(201, 168, 76, 0.12);
-      border: 1px solid var(--border-gold);
-      color: var(--color-gold-light);
-      padding: 6px 14px;
-      border-radius: 20px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: all 0.3s ease;
-    }
-    .nav-btn-home:hover {
-      background: var(--color-gold);
-      color: #120a02;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 2rem 1rem;
-    }
-    .hero-title {
-      font-family: 'Cinzel', serif;
-      text-align: center;
-      font-size: 2.4rem;
-      color: var(--color-gold);
-      margin-bottom: 0.5rem;
-    }
-    .hero-desc {
-      text-align: center;
-      color: #bfa882;
-      margin-bottom: 2rem;
-      font-size: 1.05rem;
-    }
-    .search-box-wrap {
-      max-width: 650px;
-      margin: 0 auto 2rem;
-      position: relative;
-    }
-    .search-input {
-      width: 100%;
-      box-sizing: border-box;
-      padding: 14px 20px;
-      font-size: 1.05rem;
-      border-radius: 30px;
-      border: 1.5px solid var(--color-gold);
-      background: rgba(20, 15, 10, 0.9);
-      color: #fff;
-      outline: none;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-    }
-    .search-input:focus {
-      border-color: #ffd700;
-      box-shadow: 0 0 15px rgba(201, 168, 76, 0.4);
-    }
-    .category-pills {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 2.5rem;
-    }
-    .pill-btn {
-      background: rgba(25, 20, 14, 0.7);
-      border: 1px solid var(--border-gold);
-      color: #d4c29d;
-      padding: 7px 16px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      transition: all 0.25s ease;
-    }
-    .pill-btn.active, .pill-btn:hover {
-      background: var(--color-gold);
-      color: #120a02;
-      border-color: #ffd700;
-    }
-    .words-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .word-card {
-      background: var(--color-surface);
-      border: 1px solid var(--border-gold);
-      border-radius: 12px;
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.3s ease;
-      position: relative;
-    }
-    .word-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--color-gold);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 12px rgba(201, 168, 76, 0.2);
-    }
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-      margin-bottom: 0.8rem;
-      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
-      padding-bottom: 0.5rem;
-    }
-    .card-word {
-      font-family: 'Cinzel', serif;
-      font-size: 1.35rem;
-      color: var(--color-gold);
-      font-weight: 700;
-    }
-    .card-category {
-      font-size: 0.75rem;
-      color: #a89470;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .card-modern {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #ffffff;
-      margin-bottom: 0.6rem;
-    }
-    .card-desc {
-      font-size: 0.9rem;
-      color: #c4b598;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-    }
-    .card-example {
-      font-size: 0.82rem;
-      color: #a89470;
-      font-style: italic;
-      background: rgba(0, 0, 0, 0.3);
-      padding: 8px 12px;
-      border-radius: 6px;
-      border-left: 2px solid var(--color-gold);
-    }
-    .no-results {
-      grid-column: 1 / -1;
-      text-align: center;
-      padding: 3rem;
-      color: #bfa882;
-      font-size: 1.1rem;
-    }
+/* Sözlük Özel Stilleri */
+:root {
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8d8b0;
+  --color-gold-dark: #8a6d2b;
+  --color-cream: #f5eedb;
+  --color-bg-dark: #0f0c08;
+  --color-bg-card: rgba(28, 20, 12, 0.88);
+  --color-border: rgba(201, 168, 76, 0.28);
+  --radius-card: 14px;
+  --radius-pill: 50px;
+  --shadow-gold: 0 4px 24px rgba(201, 168, 76, 0.18);
+}
+
+.sozluk-header {
+  padding: 4.5rem 1.5rem 2.5rem;
+  text-align: center;
+  position: relative;
+  background: radial-gradient(ellipse at 50% 20%, rgba(201,168,76,0.14) 0%, transparent 70%);
+}
+.sozluk-header h1 {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: var(--color-gold);
+  letter-spacing: .04em;
+  margin-bottom: .6rem;
+  text-shadow: 0 2px 20px rgba(201,168,76,0.35);
+}
+.sozluk-header p {
+  color: var(--color-gold-light);
+  font-size: 1.05rem;
+  max-width: 620px;
+  margin: 0 auto 1.5rem;
+  opacity: .88;
+}
+.word-count-badge {
+  font-size: .82rem;
+  font-weight: 600;
+  color: var(--color-gold-light);
+  background: rgba(201,168,76,0.12);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: var(--radius-pill);
+  padding: .4em 1em;
+  white-space: nowrap;
+}
+
+/* Arama ve Filtre Çubuğu */
+.controls-wrap {
+  max-width: 1100px;
+  margin: 0 auto 2.5rem;
+  padding: 0 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+.search-row {
+  display: flex;
+  gap: .8rem;
+  align-items: center;
+}
+.search-input-wrap {
+  position: relative;
+  flex: 1;
+}
+.search-input-wrap input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--color-bg-card);
+  border: 1.5px solid var(--color-border);
+  color: #fff;
+  border-radius: var(--radius-pill);
+  padding: .85rem 1.2rem .85rem 3rem;
+  font-size: 1rem;
+  outline: none;
+  transition: all .3s ease;
+}
+.search-input-wrap input:focus {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 16px rgba(201,168,76,0.35);
+}
+.search-icon {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-gold);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+
+/* Kategori Butonları */
+.cat-scroll-wrap {
+  display: flex;
+  gap: .5rem;
+  overflow-x: auto;
+  padding-bottom: .4rem;
+  scrollbar-width: thin;
+}
+.cat-btn {
+  background: rgba(28,20,12,0.7);
+  border: 1px solid var(--color-border);
+  color: var(--color-gold-light);
+  padding: .5rem 1.1rem;
+  border-radius: var(--radius-pill);
+  font-size: .84rem;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all .25s ease;
+}
+.cat-btn:hover, .cat-btn.active {
+  background: var(--color-gold);
+  color: #120a02;
+  border-color: #ffd700;
+  font-weight: 700;
+}
+
+/* Kelime Kartları Izgarası */
+.words-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.2rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+  gap: 1.5rem;
+}
+.word-card {
+  background: var(--color-bg-card);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-card);
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backdrop-filter: blur(10px);
+  transition: all .3s cubic-bezier(.4,0,.2,1);
+  position: relative;
+}
+.word-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-gold);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.6), var(--shadow-gold);
+}
+.word-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: .8rem;
+  border-bottom: 1px solid rgba(201,168,76,0.18);
+  padding-bottom: .6rem;
+}
+.word-title {
+  font-family: 'Cinzel', serif;
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--color-gold);
+}
+.word-cat-badge {
+  font-size: .72rem;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+  background: rgba(201,168,76,0.12);
+  border-radius: var(--radius-pill);
+  padding: .25em .8em;
+}
+.word-modern {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: .5rem;
+}
+.word-desc {
+  font-size: .92rem;
+  color: #d4c29d;
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+.word-example {
+  background: rgba(0,0,0,0.35);
+  border-left: 3px solid var(--color-gold);
+  padding: .6rem .8rem;
+  border-radius: 4px;
+  font-size: .85rem;
+  color: #e0d2b4;
+  font-style: italic;
+}
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--color-gold-light);
+}
   </style>
 </head>
 <body>
 
-  <!-- ÜST MENÜ VE ANA SAYFAYA DÖNÜŞ BAĞLANTISI -->
-  <header class="header-nav">
-    <a href="index.html" class="brand-link" title="Ana Sayfaya Dön">
-      <span>🏛️</span>
-      <span>Dîvânu Lugâti't-Türk</span>
-    </a>
-    <a href="index.html" class="nav-btn-home">
-      <span>🏠 Ana Sayfaya Dön</span>
-    </a>
+  <!-- Üst Navigasyon Menüsü -->
+  <header class="site-header" id="site-header">
+    <nav class="navbar" role="navigation" aria-label="Ana Navigasyon">
+      <a href="index.html" class="brand" id="brand-logo" style="display:flex;align-items:center;gap:12px;text-decoration:none">
+        <div class="tfl-badge-wrap" style="position:relative;display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#c9a84c 0%,#7d611d 100%);padding:2px;box-shadow:0 0 15px rgba(201,168,76,0.45);transition:all 0.3s ease">
+          <img src="assets/tfl_logo.jpeg" alt="TFL Logosu" style="width:100%;height:100%;border-radius:10px;object-fit:cover;display:block" />
+        </div>
+        <div style="display:flex;flex-direction:column;line-height:1.2">
+          <span class="brand-text" style="font-weight:700;letter-spacing:0.02em">Dilimizin Zenginlikleri</span>
+          <span style="font-size:0.7rem;color:var(--color-gold);font-weight:600;letter-spacing:0.08em;text-transform:uppercase">TFL · Dîvânu Lugâti't-Türk</span>
+        </div>
+      </a>
+      <ul class="nav-links" id="nav-links" role="menubar">
+        <li role="none"><a href="index.html" class="nav-link" role="menuitem">Ana Sayfa</a></li>
+        <li role="none"><a href="divanu.html" class="nav-link" role="menuitem">Dîvânu Lugâti't-Türk</a></li>
+        <li role="none"><a href="sozluk.html" class="nav-link active" role="menuitem">Sözlük</a></li>
+        <li role="none"><a href="harita.html" class="nav-map-btn" role="menuitem">🗺️ Canlı Harita</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main class="container">
-    <h1 class="hero-title">100 Kadim Kelime Sözlüğü</h1>
-    <p class="hero-desc">Kaşgarlı Mahmud'un bin yıl önce kaydettiği Türkçe kelime hazinesi</p>
+  <!-- Başlık -->
+  <section class="sozluk-header">
+    <h1>Kadim Kelimeler Sözlüğü</h1>
+    <p>Kaşgarlı Mahmud'un bin yıl önce Dîvânu Lugâti't-Türk'te derlediği eşsiz kelime hazinesi</p>
+    <span class="word-count-badge" id="word-count">100 Kelime</span>
+  </section>
 
-    <!-- AKILLI ARAMA ÇUBUĞU -->
-    <div class="search-box-wrap">
-      <input type="text" id="search-input" class="search-input" placeholder="Kelime, günümüz karşılığı veya anlam ara (Örn: bilig, akıl, alp)...">
+  <!-- Filtreler ve Arama -->
+  <div class="controls-wrap">
+    <div class="search-row">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Kelime veya anlam ara (Örn: bilig, akıl, alp)..." />
+      </div>
     </div>
-
-    <!-- KATEGORİ SEÇİCİLER -->
-    <div class="category-pills" id="category-pills">
-      <button class="pill-btn active" data-cat="all">Tümü (100)</button>
+    <div class="cat-scroll-wrap" id="cat-filters">
+      <button class="cat-btn active" data-cat="all">Tümü (100)</button>
     </div>
+  </div>
 
-    <!-- KELİME KARTLARI LİSTESİ -->
-    <div class="words-grid" id="words-grid"></div>
-  </main>
+  <!-- Kelimeler Izgarası -->
+  <main class="words-grid" id="words-grid"></main>
 
   <script src="words.js"></script>
   <script src="music-player.js"></script>
   <script>
-    // TÜRKÇE KARAKTER VE AKILLI ARAMA NORMALİZASYONU
-    function normalizeTR(str) {
-      if (!str) return '';
-      return str.toString()
-        .toLowerCase()
-        .replace(/ğ/g, 'g')
-        .replace(/ü/g, 'u')
-        .replace(/ş/g, 's')
-        .replace(/ı/g, 'i')
-        .replace(/ö/g, 'o')
-        .replace(/ç/g, 'c')
-        .replace(/[\.\,\-\'\"]/g, '')
-        .trim();
-    }
-
     const searchInput = document.getElementById('search-input');
-    const categoryContainer = document.getElementById('category-pills');
+    const catContainer = document.getElementById('cat-filters');
     const wordsGrid = document.getElementById('words-grid');
+    const wordCountBadge = document.getElementById('word-count');
 
-    let currentCategory = 'all';
-    const wordsList = typeof WORDS_DATA !== 'undefined' ? WORDS_DATA : [];
+    let activeCat = 'all';
+    const wordsData = typeof WORDS_DATA !== 'undefined' ? WORDS_DATA : [];
 
-    // Kategorileri Dinamik Çıkar
-    const categories = ['all'];
-    wordsList.forEach(w => {
-      if (w.category && !categories.includes(w.category)) {
-        categories.push(w.category);
-      }
+    // Kategorileri Dinamik Al
+    const cats = ['all'];
+    wordsData.forEach(w => {
+      if (w.category && !cats.includes(w.category)) cats.push(w.category);
     });
 
-    // Kategori Butonlarını Oluştur
-    categoryContainer.innerHTML = categories.map(cat => `
-      <button class="pill-btn ${cat === 'all' ? 'active' : ''}" data-cat="${cat}">
-        ${cat === 'all' ? 'Tümü (' + wordsList.length + ')' : cat}
+    catContainer.innerHTML = cats.map(c => `
+      <button class="cat-btn ${c === 'all' ? 'active' : ''}" data-cat="${c}">
+        ${c === 'all' ? 'Tümü (100)' : c}
       </button>
     `).join('');
 
-    // Kartları Ekrana Bas
-    function renderWords(list) {
+    function renderCards(list) {
+      wordCountBadge.textContent = list.length + ' Kelime';
       if (!list || list.length === 0) {
-        wordsGrid.innerHTML = `
-          <div class="no-results">
-            <p>Aradığınız kriterlere uygun kelime bulunamadı.</p>
-          </div>
-        `;
+        wordsGrid.innerHTML = '<div class="no-results"><p>Aradığınız kriterlere uygun kelime bulunamadı.</p></div>';
         return;
       }
-
       wordsGrid.innerHTML = list.map(item => `
         <div class="word-card">
           <div>
-            <div class="card-header">
-              <span class="card-word">${item.word}</span>
-              <span class="card-category">${item.category || ''}</span>
+            <div class="word-card-top">
+              <span class="word-title">${item.word}</span>
+              <span class="word-cat-badge">${item.category || ''}</span>
             </div>
-            <div class="card-modern">${item.meaning || item.modern || ''}</div>
-            <div class="card-desc">${item.desc || item.description || ''}</div>
+            <div class="word-modern">${item.meaning || item.modern || ''}</div>
+            <div class="word-desc">${item.desc || item.description || ''}</div>
           </div>
-          ${item.example ? `<div class="card-example">"${item.example}"</div>` : ''}
+          ${item.example ? `<div class="word-example">"${item.example}"</div>` : ''}
         </div>
       `).join('');
     }
 
-    // %100 BAŞARILI AKILLI ARAMA VE FİLTRELEME
-    function filterWords() {
-      const q = normalizeTR(searchInput.value);
+    function applyFilter() {
+      const q = (searchInput.value || '').toLowerCase().trim();
+      const filtered = wordsData.filter(w => {
+        const matchCat = (activeCat === 'all') || (w.category === activeCat);
+        const wTitle = (w.word || '').toLowerCase();
+        const wModern = (w.meaning || w.modern || '').toLowerCase();
+        const wDesc = (w.desc || w.description || '').toLowerCase();
+        const matchSearch = !q || wTitle.includes(q) || wModern.includes(q) || wDesc.includes(q);
+        return matchCat && matchSearch;
+      });
+      renderCards(filtered);
+    }
 
-      const filtered = wordsList.filter(item => {
-        // Kategori Kontrolü
-        const matchCat = (currentCategory === 'all') || (item.category === currentCategory);
+    searchInput.addEventListener('input', applyFilter);
 
-        // Akıllı Metin Eşleşmesi (Kelime, Anlam, Açıklama, Örnek Cümle)
-        const wWord = normalizeTR(item.word);
-        const wModern = normalizeTR(item.meaning || item.modern);
-        const wDesc = normalizeTR(item.desc || item.description);
-        const wEx = normalizeTR(item.example);
-        const wCat = normalizeTR(item.category);
+    catContainer.addEventListener('click', e => {
+      const btn = e.target.closest('.cat-btn');
+      if (!btn) return;
+      catContainer.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeCat = btn.getAttribute('data-cat');
+      applyFilter();
+    });
 
-        const matchSearch = !q || 
-          wWord.includes(q) || 
-          wModern.includes(q) || 
-          wDesc.includes(
+    renderCards(wordsData);
+  </script>
+</body>
+</html>
