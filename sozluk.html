@@ -10,9 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,900;1,400&family=Cinzel:wght@600;700;900&family=Inter:wght@300;400;500;600;700&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <style>
-/* ─────────────────────────────────────────────
-   SÖZLÜK SAYFASI ÖZEL STİLLERİ
-─────────────────────────────────────────────── */
 :root {
   --color-gold:        #c9a84c;
   --color-gold-light:  #e8d8b0;
@@ -68,7 +65,6 @@
   white-space: nowrap;
 }
 
-/* KONTROL PANELİ */
 .controls-wrap {
   max-width: 1200px;
   margin: 0 auto 2rem;
@@ -132,7 +128,6 @@
   border-color: #ffd700;
 }
 
-/* Kategori Butonları */
 .cat-scroll-wrap {
   display: flex;
   gap: .5rem;
@@ -159,7 +154,6 @@
   font-weight: 700;
 }
 
-/* KELİME KARTLARI */
 .words-grid {
   max-width: 1200px;
   margin: 0 auto;
@@ -267,7 +261,7 @@
 </head>
 <body>
 
-  <!-- ÜST NAVİGASYON -->
+  <!-- Üst Navigasyon -->
   <header class="site-header" id="site-header">
     <nav class="navbar" role="navigation" aria-label="Ana Navigasyon">
       <a href="index.html" class="brand" id="brand-logo" style="display:flex;align-items:center;gap:12px;text-decoration:none">
@@ -288,14 +282,12 @@
     </nav>
   </header>
 
-  <!-- BAŞLIK BÖLÜMÜ -->
   <section class="sozluk-header">
     <h1 class="sozluk-title">Kadim Kelimeler Sözlüğü</h1>
     <p class="sozluk-sub">Kaşgarlı Mahmud'un bin yıl önce Dîvânu Lugâti't-Türk'te derlediği eşsiz kelime hazinesi</p>
-    <span class="word-count-badge" id="word-count">100 Kelime</span>
+    <span class="word-count-badge" id="word-count">Yükleniyor...</span>
   </section>
 
-  <!-- KONTROL & FİLTRE -->
   <div class="controls-wrap">
     <div class="search-row">
       <div class="search-input-wrap">
@@ -308,12 +300,9 @@
         <span id="fav-count">(0)</span>
       </button>
     </div>
-    <div class="cat-scroll-wrap" id="cat-filters">
-      <button class="cat-btn active" data-cat="all">Tümü (100)</button>
-    </div>
+    <div class="cat-scroll-wrap" id="cat-filters"></div>
   </div>
 
-  <!-- KELİMELER IZGARASI -->
   <main class="words-grid" id="words-grid"></main>
 
   <script src="words.js"></script>
@@ -330,12 +319,16 @@
     let onlyFavs = false;
     let favorites = JSON.parse(localStorage.getItem('dlt_favorites') || '[]');
 
-    const wordsData = typeof WORDS_DATA !== 'undefined' ? WORDS_DATA : [];
+    // Hem DLT_WORDS hem WORDS_DATA desteği (Kelimeler garanti yüklenir)
+    const wordsData = (typeof DLT_WORDS !== 'undefined' && DLT_WORDS.length) ? DLT_WORDS : 
+                      ((typeof WORDS_DATA !== 'undefined' && WORDS_DATA.length) ? WORDS_DATA : 
+                      (window.DLT_WORDS || window.WORDS_DATA || []));
 
-    // Kategorileri Al
+    // Kategorileri Dinamik Çıkar
     const cats = ['all'];
     wordsData.forEach(w => {
-      if (w.category && !cats.includes(w.category)) cats.push(w.category);
+      const c = w.category || w.cat;
+      if (c && !cats.includes(c)) cats.push(c);
     });
 
     catContainer.innerHTML = cats.map(c => `
@@ -356,25 +349,31 @@
         return;
       }
       wordsGrid.innerHTML = list.map(item => {
-        const isFav = favorites.includes(item.id || item.word);
+        const itemId = item.id || item.word;
+        const isFav = favorites.includes(itemId);
+        const wCat = item.category || item.cat || '';
+        const wModern = item.modern || item.meaning || item.gunumuz || '';
+        const wDesc = item.desc || item.description || item.tanim || '';
+        const wEx = item.example || item.ornek || '';
+
         return `
           <div class="word-card">
             <div>
               <div class="word-card-top">
                 <div class="word-title-row">
                   <span class="word-title">${item.word}</span>
-                  <span class="word-cat-badge">${item.category || ''}</span>
+                  ${wCat ? `<span class="word-cat-badge">${wCat}</span>` : ''}
                 </div>
                 <div class="card-actions">
                   <button class="btn-icon speak-btn" onclick="speakWord('${item.word}')" title="Sesli Oku">🔊</button>
-                  <button class="btn-icon fav-btn" onclick="toggleFav('${item.id || item.word}')" title="Favorilere Ekle">${isFav ? '⭐' : '☆'}</button>
+                  <button class="btn-icon fav-btn" onclick="toggleFav('${itemId}')" title="Favorilere Ekle">${isFav ? '⭐' : '☆'}</button>
                 </div>
               </div>
-              <div class="word-modern">${item.meaning || item.modern || ''}</div>
-              <div class="word-desc">${item.desc || item.description || ''}</div>
+              <div class="word-modern">${wModern}</div>
+              <div class="word-desc">${wDesc}</div>
             </div>
             <div>
-              ${item.example ? `<div class="word-example">"${item.example}"</div>` : ''}
+              ${wEx ? `<div class="word-example">"${wEx}"</div>` : ''}
               <div class="word-bottom-meta">
                 <span>Dîvânu Lugâti't-Türk</span>
                 <span>XI. Yüzyıl</span>
@@ -388,14 +387,18 @@
     function applyFilter() {
       const q = (searchInput.value || '').toLowerCase().trim();
       const filtered = wordsData.filter(w => {
-        const matchCat = (activeCat === 'all') || (w.category === activeCat);
-        const isFav = favorites.includes(w.id || w.word);
+        const wCat = w.category || w.cat || '';
+        const matchCat = (activeCat === 'all') || (wCat === activeCat);
+
+        const itemId = w.id || w.word;
+        const isFav = favorites.includes(itemId);
         const matchFav = !onlyFavs || isFav;
 
         const wTitle = (w.word || '').toLowerCase();
-        const wModern = (w.meaning || w.modern || '').toLowerCase();
-        const wDesc = (w.desc || w.description || '').toLowerCase();
-        const matchSearch = !q || wTitle.includes(q) || wModern.includes(q) || wDesc.includes(q);
+        const wModern = (w.modern || w.meaning || w.gunumuz || '').toLowerCase();
+        const wDesc = (w.desc || w.description || w.tanim || '').toLowerCase();
+
+        const matchSearch = !q || wTitle.includes(q) || wModern.includes(q) || wDesc.includes(q) || wCat.toLowerCase().includes(q);
 
         return matchCat && matchFav && matchSearch;
       });
